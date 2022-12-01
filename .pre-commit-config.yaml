@@ -1,0 +1,8 @@
+default_language_version:
+  python: python3
+
+repos:
+  - repo: https://github.com/vcwild/norminette-hook
+    rev: v0.1.1
+    hooks:
+      - id: norminette-hook

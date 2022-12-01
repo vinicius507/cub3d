@@ -1,0 +1,29 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.c'
+      - '**.h'
+      - 'Makefile'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**.c'
+      - '**.h'
+      - 'Makefile'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: GNU make version
+      run: make --version
+    - name: Build
+      run: make
