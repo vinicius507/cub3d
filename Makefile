@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 12:35:24 by vgoncalv          #+#    #+#              #
-#    Updated: 2022/12/01 20:46:16 by lufelip2         ###   ########.fr        #
+#    Updated: 2022/12/02 04:25:11 by vgoncalv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,13 +20,10 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_FLAGS = -L./$(LIBFT_DIR) -lft
 LIBFT_INCLUDES_DIR = ./$(LIBFT_DIR)/include ./$(LIBFT_DIR)
 
-LIBMLX_DIR = ./libmlx
-LIBMLX = $(LIBMLX_DIR)/libmlx.a
-LIBMLX_FLAGS = -L./$(LIBMLX_DIR) -lXext -lmlx -lX11
-LIBMLX_INCLUDES_DIR = ./$(LIBMLX_DIR)
+LIBMLX_FLAGS = -lXext -lmlx -lX11
 
 LIBS_FLAGS = $(LIBFT_FLAGS) $(LIBMLX_FLAGS)
-LIBS_INCLUDES = $(LIBFT_INCLUDES_DIR) $(LIBMLX_INCLUDES_DIR)
+LIBS_INCLUDES = $(LIBFT_INCLUDES_DIR)
 SRCS_DIR := ./src
 vpath %.c $(SRCS_DIR)
 SRCS = main.c
@@ -41,14 +38,11 @@ RM = rm -rf
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT) $(LIBMLX)
+$(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) $^ $(LIBS_FLAGS) -o $@
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
-
-$(LIBMLX):
-	make -C $(LIBMLX_DIR)
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
@@ -58,12 +52,10 @@ $(BUILD_DIR)/%.o: %.c $(BUILD_DIR)
 
 clean:
 	make clean -C $(LIBFT_DIR)
-	make clean -C $(LIBMLX_DIR)
 	$(RM) $(BUILD_DIR)
 
 fclean:
 	make fclean -C $(LIBFT_DIR)
-	make clean -C $(LIBMLX_DIR)
 	$(RM) $(BUILD_DIR)
 	$(RM) $(NAME)
 

@@ -4,6 +4,12 @@
     "dockerfile": "Dockerfile",
     "context": "."
   },
+  "containerEnv": {
+    "DISPLAY": "unix:0"
+  },
+  "mounts": [
+    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
+  ],
   "postCreateCommand": "/bin/bash .devcontainer/post_create.sh",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "features": {
