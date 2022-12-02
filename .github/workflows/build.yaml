@@ -28,8 +28,8 @@ jobs:
         sudo apt install -y clang-12 libxext-dev libbsd-dev libx11-6
         git clone https://github.com/42Paris/minilibx-linux /tmp/libmlx
         make -C /tmp/libmlx
-        mv /tmp/libmlx/libmlx.a /usr/local/lib/libmlx.a
-        mv /tmp/libmlx/mlx.h /usr/local/include/mlx.h
+        sudo mv /tmp/libmlx/libmlx.a /usr/local/lib/libmlx.a
+        sudo mv /tmp/libmlx/mlx.h /usr/local/include/mlx.h
     - name: GNU make version
       run: make --version
     - name: Build
