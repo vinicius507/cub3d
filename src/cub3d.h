@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 12:34:02 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/12/10 16:35:47 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/12/07 23:39:36 by lufelip2          #+#    #+#             */
+/*   Updated: 2022/12/10 16:29:29 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <cub3d.h>
+#ifndef CUB3D_H
+# define CUB3D_H
 
-// TODO init projection
-// TODO free memory when done
-int	main(int argc, char **argv)
+# include <libft.h>
+
+typedef struct s_config
 {
-	t_config	config;
-	const char	*config_path;
+}	t_config;
 
-	ft_bzero(&config, sizeof(t_config));
-	config_path = parse_args(argc, argv);
-	if (config_path == NULL)
-		exit(EXIT_FAILURE);
-	if ((load_map_config(config_path, &config) != 0))
-		exit(EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
+void	error(const char *msg);
+
+char	*parse_args(int argc, char **argv);
+
+int		load_map_config(const char *filename, t_config *config);
+
+#endif

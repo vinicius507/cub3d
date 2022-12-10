@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   config.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 12:34:02 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/12/10 16:35:47 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/12/10 16:25:08 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/12/10 16:35:24 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include <cub3d.h>
 
-// TODO init projection
-// TODO free memory when done
-int	main(int argc, char **argv)
+// TODO parse config file
+// TODO read map (AABB Tree?)
+int	load_map_config(const char *filename, t_config *config)
 {
-	t_config	config;
-	const char	*config_path;
+	int	fd;
 
-	ft_bzero(&config, sizeof(t_config));
-	config_path = parse_args(argc, argv);
-	if (config_path == NULL)
-		exit(EXIT_FAILURE);
-	if ((load_map_config(config_path, &config) != 0))
-		exit(EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+	{
+		perror(filename);
+		return (1);
+	}
+	(void)config;
+	close(fd);
+	return (0);
 }
