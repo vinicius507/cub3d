@@ -6,107 +6,110 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 16:56:03 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/09/21 18:30:24 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/12/23 17:24:19 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <libft/ft_mem.h>
 #include <libft/ft_string.h>
 #include <libft/ft_io/get_next_line.h>
 
-static void	reassign(char **save, char *dest)
+static char	*g_saves[OPEN_MAX] = {};
+
+int	found_linebreak(int fd)
 {
-	if (*save != NULL)
-	{
-		free(*save);
-		*save = dest;
-	}
+	if (g_saves[fd] == NULL)
+		return (0);
+	return ((ft_strchr(g_saves[fd], '\n') != NULL));
 }
 
-static int	linelen(char *line)
+int	read_chunk(int fd)
 {
-	size_t	len;
+	char	*buf;
+	char	*save;
+	ssize_t	bytes_read;
 
-	len = 0;
-	while (line[len])
+	buf = ft_calloc(1, BUFFER_SIZE + 1);
+	if (buf == NULL)
+		return (1);
+	bytes_read = read(fd, buf, BUFFER_SIZE);
+	if (bytes_read < 0)
+		return (GNLERROR);
+	if (bytes_read == 0)
+		return (GNLEOF);
+	if (g_saves[fd] == NULL)
+		g_saves[fd] = ft_strdup(buf);
+	else
 	{
-		if (line[len] == '\n')
-			break ;
-		len++;
+		save = ft_strjoin(g_saves[fd], buf);
+		free(g_saves[fd]);
+		if (save == NULL)
+			return (GNLERROR);
+		g_saves[fd] = save;
 	}
-	return (len);
+	return (0);
 }
 
-static int	get_line(char **save, char **line)
+char	*get_line(int fd)
 {
-	size_t	size;
-	char	*temp;
+	char	*line;
+	char	*linebreak;
 
-	size = linelen(*save);
-	if ((*save)[size] == '\0')
+	if (g_saves[fd] == NULL)
+		return (NULL);
+	linebreak = ft_strchr(g_saves[fd], '\n');
+	if (linebreak == NULL || linebreak[1] == '\0')
 	{
-		*line = ft_strdup(*save);
-		reassign(save, NULL);
-		if (*line == NULL)
-			return (GNL_ERROR);
-		return (GNL_EOF);
+		line = ft_strdup(g_saves[fd]);
+		free(g_saves[fd]);
+		g_saves[fd] = NULL;
 	}
-	*line = ft_substr(*save, 0, size);
-	temp = ft_strdup((*save) + size + 1);
-	if (temp == NULL || *line == NULL)
-		return (GNL_ERROR);
-	reassign(save, temp);
-	return (GNL_NL);
-}
-
-static int	output(char **save, char **line, ssize_t size_read)
-{
-	if (size_read == -1)
+	else
 	{
-		reassign(save, NULL);
-		return (GNL_ERROR);
+		line = ft_substr(g_saves[fd], 0, linebreak - g_saves[fd] + 1);
+		ft_strlcpy(g_saves[fd], linebreak + 1, (ft_strlen(linebreak + 1) + 1));
 	}
-	else if (size_read == 0 && *save == NULL)
-	{
-		*line = ft_strdup("");
-		return (GNL_EOF);
-	}
-	return (get_line(save, line));
+	return (line);
 }
 
 /**
  * @brief Gets the next line from an open file descriptor.
- * @param fd
- * @param line
- * @see e_gnl_status
- * @return The status of the function call.
+ * @param fd The file descriptor to get the next line from
+ * @return The next line of the file
  */
-int	get_next_line(int fd, char **line)
+char	*get_next_line(int fd)
 {
-	static char	*save[OPEN_MAX];
-	ssize_t		size_read;
-	char		*buffer;
-	char		*temp;
+	int		status;
+	char	*line;
 
-	buffer = malloc(BUFFER_SIZE + 1);
-	if (buffer == NULL)
-		return (GNL_ERROR);
-	size_read = read(fd, buffer, BUFFER_SIZE);
-	while (size_read > 0)
+	if (fd < 0)
+		return (NULL);
+	while ((found_linebreak(fd) == 0))
 	{
-		buffer[size_read] = '\0';
-		if (save[fd] == NULL)
-			save[fd] = ft_strdup(buffer);
-		else
-		{
-			temp = ft_strjoin(save[fd], buffer);
-			reassign(&(save[fd]), temp);
-		}
-		if (ft_strchr(save[fd], '\n'))
+		status = read_chunk(fd);
+		if (status == GNLERROR)
+			return (NULL);
+		if (status == GNLEOF)
 			break ;
-		size_read = read(fd, buffer, BUFFER_SIZE);
 	}
-	free(buffer);
-	return (output(&(save[fd]), line, size_read));
+	line = get_line(fd);
+	return (line);
+}
+
+void	gnl_clear(void)
+{
+	size_t	fd;
+
+	fd = 0;
+	while (fd < OPEN_MAX)
+	{
+		if (g_saves[fd] != NULL)
+		{
+			free(g_saves[fd]);
+			g_saves[fd] = NULL;
+		}
+		fd++;
+	}
 }
