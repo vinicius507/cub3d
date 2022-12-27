@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vgoncalv <vgoncalv>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/07 23:39:36 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/12/27 15:54:14 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/12/27 15:51:37 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/12/27 16:34:32 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef ERROR_H
+# define ERROR_H
 
-# include <libft.h>
+typedef const char	*t_err;
 
-# include "error.h"
-# include "config.h"
+t_err	error(const char *msg);
 
-char	*parse_args(int argc, char **argv);
+t_err	error_from(const char *msg, t_err err_from);
+
+void	print_error(t_err err);
 
 #endif

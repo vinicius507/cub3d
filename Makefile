@@ -28,10 +28,10 @@ SRCS_DIR := ./src
 vpath %.c $(SRCS_DIR)
 SRCS = main.c error.c parse_args.c config.c map_config.c
 
-OBJS = $(addprefix $(BUILD_DIR)/,$(SRCS:%.c=%.o)) 
+OBJS = $(addprefix $(BUILD_DIR)/,$(SRCS:%.c=%.o))
 BUILD_DIR = ./build
 
-INCLUDES_DIR = $(LIBS_INCLUDES) $(SRCS_DIR)
+INCLUDES_DIR = $(LIBS_INCLUDES)
 INCLUDES = $(addprefix -I,$(INCLUDES_DIR))
 
 RM = rm -rf

@@ -6,12 +6,24 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:34:02 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/12/27 15:03:51 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/12/27 16:32:43 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <cub3d.h>
+
+#include "cub3d.h"
+#include "error.h"
+
+void	usage(const char *name)
+{
+	ft_dprintf(2,
+		"Usage: %s MAP\n\n"
+		"Positional Arguments:\n"
+		"  MAP\n"
+		"    A .cub file with the configuration for cub3d.\n",
+		name);
+}
 
 void	teardown(t_config *config)
 {
@@ -22,6 +34,7 @@ void	teardown(t_config *config)
 // TODO free memory when done
 int	main(int argc, char **argv)
 {
+	t_err		err;
 	t_config	config;
 	const char	*config_path;
 
@@ -29,12 +42,13 @@ int	main(int argc, char **argv)
 	config_path = parse_args(argc, argv);
 	if (config_path == NULL)
 		exit(EXIT_FAILURE);
-	if ((load_map_config(config_path, &config) != 0))
+	err = load_map_config(config_path, &config);
+	if (err != NULL)
+	{
+		print_error(err);
+		teardown(&config);
 		exit(EXIT_FAILURE);
-	ft_printf("no: %s\n", config.textures.no);
-	ft_printf("so: %s\n", config.textures.so);
-	ft_printf("we: %s\n", config.textures.we);
-	ft_printf("ea: %s\n", config.textures.ea);
+	}
 	teardown(&config);
 	return (EXIT_SUCCESS);
 }
