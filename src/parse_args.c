@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 16:09:41 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/12/10 16:36:04 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/12/23 15:55:56 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ char	*parse_args(int argc, char **argv)
 	bin_path = argv[0];
 	if (argc != 2)
 	{
-		error("wrong number of arguments");
+		error("wrong number of arguments", NULL);
 		usage(bin_path);
 		return (NULL);
 	}
 	map_filename = argv[1];
 	if ((arg_is_map_file(map_filename) == 0))
 	{
-		error("argument is not a filename ending in .cub");
+		error("map file is invalid", "missing extension .cub");
 		usage(bin_path);
 		return (NULL);
 	}

@@ -26,7 +26,7 @@ LIBS_FLAGS = $(LIBFT_FLAGS) $(LIBMLX_FLAGS)
 LIBS_INCLUDES = $(LIBFT_INCLUDES_DIR)
 SRCS_DIR := ./src
 vpath %.c $(SRCS_DIR)
-SRCS = main.c error.c parse_args.c config.c
+SRCS = main.c error.c parse_args.c config.c map_config.c
 
 OBJS = $(addprefix $(BUILD_DIR)/,$(SRCS:%.c=%.o)) 
 BUILD_DIR = ./build
