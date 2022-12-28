@@ -15,16 +15,6 @@
 #include "cub3d.h"
 #include "error.h"
 
-void	usage(const char *name)
-{
-	ft_dprintf(2,
-		"Usage: %s MAP\n\n"
-		"Positional Arguments:\n"
-		"  MAP\n"
-		"    A .cub file with the configuration for cub3d.\n",
-		name);
-}
-
 void	teardown(t_config *config)
 {
 	teardown_config(config);
