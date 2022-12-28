@@ -39,6 +39,12 @@ int	main(int argc, char **argv)
 		teardown(&config);
 		exit(EXIT_FAILURE);
 	}
+	ft_printf("config.no=%s\n", config.no);
+	ft_printf("config.so=%s\n", config.so);
+	ft_printf("config.we=%s\n", config.we);
+	ft_printf("config.ea=%s\n", config.ea);
+	ft_printf("config.floor=%#x\n", config.floor);
+	ft_printf("config.ceiling=%#x\n", config.ceiling);
 	teardown(&config);
 	return (EXIT_SUCCESS);
 }

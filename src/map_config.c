@@ -23,6 +23,7 @@ static t_err	parse_config_line(char *line, t_config *config)
 	char	*key;
 	char	*value;
 	char	*space;
+	t_err	err;
 
 	space = ft_strchr(line, ' ');
 	if (space == NULL)
@@ -36,7 +37,10 @@ static t_err	parse_config_line(char *line, t_config *config)
 		free(key);
 		return (error(""));
 	}
-	return (set_config_option(config, key, value));
+	err = set_config_option(config, key, value);
+	free(key);
+	free(value);
+	return (err);
 }
 
 static t_err	parse_map_config(int config_fd, t_config *config)

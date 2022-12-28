@@ -13,19 +13,22 @@
 #ifndef CONFIG_H
 # define CONFIG_H
 
+# include <stdint.h>
+
 # include "error.h"
 
-typedef struct s_textures
-{
-	const char	*no;
-	const char	*so;
-	const char	*we;
-	const char	*ea;
-}	t_textures;
+typedef const char	*t_texture_path;
+
+typedef uint32_t		t_color;
 
 typedef struct s_config
 {
-	t_textures	textures;
+	t_texture_path	no;
+	t_texture_path	so;
+	t_texture_path	we;
+	t_texture_path	ea;
+	t_color			floor;
+	t_color			ceiling;
 }	t_config;
 
 t_err	set_config_option(t_config *config, char *option, char *value);
