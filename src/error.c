@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 16:12:08 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/12/27 16:30:08 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/12/28 12:21:56 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_err	error(const char *msg)
 {
-	return (msg);
+	return (ft_strdup(msg));
 }
 
 t_err	error_from(const char *msg, t_err err_from)

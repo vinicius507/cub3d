@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 15:26:16 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/12/27 16:34:20 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2022/12/28 12:22:59 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 typedef const char	*t_texture_path;
 
-typedef uint32_t		t_color;
+typedef uint32_t	t_color;
 
 typedef struct s_config
 {
