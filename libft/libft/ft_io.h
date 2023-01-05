@@ -21,6 +21,8 @@
 
 # include <stdarg.h>
 
+# include "libft/ft_io/get_next_line.h"
+
 # ifdef __linux__
 #  define NULL_STR "(nil)"
 # elif defined(__APPLE__)
@@ -58,7 +60,5 @@ int		ft_vsprintf(char *buf, const char *format, va_list ap);
 int		ft_vasprintf(char **buf, const char *format, va_list ap);
 
 int		ft_asprintf(char **buf, const char *format, ...);
-
-int		get_next_line(int fd, char **line);
 
 #endif

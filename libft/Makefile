@@ -57,7 +57,9 @@ fclean: clean
 
 re: fclean all
 
-so: $(OBJS)
+so: libft.so
+
+libft.so: $(OBJS)
 	$(CC) $(CFLAGS) -shared -fpic $^ -o $(NAME:.a=.so)
 
 .PHONY: all clean fclean re so

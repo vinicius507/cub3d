@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgoncalv <vgoncalv>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/04 15:58:41 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/09/04 16:05:00 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/12/27 15:51:37 by vgoncalv          #+#    #+#             */
+/*   Updated: 2022/12/27 16:34:32 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef ERROR_H
+# define ERROR_H
 
-# define BUFFER_SIZE 8
+typedef const char	*t_err;
 
-# ifndef OPEN_MAX
-#  define OPEN_MAX 64
-# endif
+t_err	error(const char *msg);
 
-enum e_gnlstatus
-{
-	GNLERROR = 1,
-	GNLEOF,
-};
+t_err	error_from(const char *msg, t_err err_from);
 
-void	gnl_clear(void);
-
-char	*get_next_line(int fd);
+void	print_error(t_err err);
 
 #endif

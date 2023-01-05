@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv>                        +#+  +:+       +#+        */
+/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/04 15:58:41 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/09/04 16:05:00 by vgoncalv         ###   ########.fr       */
+/*   Created: 2022/12/07 23:39:36 by lufelip2          #+#    #+#             */
+/*   Updated: 2022/12/28 11:43:58 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
-# define BUFFER_SIZE 8
+# include <libft.h>
 
-# ifndef OPEN_MAX
-#  define OPEN_MAX 64
-# endif
+# include "error.h"
+# include "config.h"
 
-enum e_gnlstatus
-{
-	GNLERROR = 1,
-	GNLEOF,
-};
-
-void	gnl_clear(void);
-
-char	*get_next_line(int fd);
+char	*parse_args(int argc, char **argv);
 
 #endif
