@@ -16,19 +16,17 @@
 #include <libft/ft_string.h>
 #include <libft/ft_io/get_next_line.h>
 
-static char	*g_saves[OPEN_MAX] = {};
-
-int	found_linebreak(int fd)
+static int	found_linebreak(char *save)
 {
-	if (g_saves[fd] == NULL)
+	if (save == NULL)
 		return (0);
-	return ((ft_strchr(g_saves[fd], '\n') != NULL));
+	return ((ft_strchr(save, '\n') != NULL));
 }
 
-int	read_chunk(int fd)
+int	read_chunk(int fd, char *save)
 {
 	char	*buf;
-	char	*save;
+	char	*tempsafe;
 	ssize_t	bytes_read;
 
 	buf = ft_calloc(1, BUFFER_SIZE + 1);
@@ -39,37 +37,37 @@ int	read_chunk(int fd)
 		return (GNLERROR);
 	if (bytes_read == 0)
 		return (GNLEOF);
-	if (g_saves[fd] == NULL)
-		g_saves[fd] = ft_strdup(buf);
+	if (save == NULL)
+		save = ft_strdup(buf);
 	else
 	{
-		save = ft_strjoin(g_saves[fd], buf);
-		free(g_saves[fd]);
-		if (save == NULL)
+		tempsafe = ft_strjoin(save, buf);
+		free(save);
+		if (tempsafe == NULL)
 			return (GNLERROR);
-		g_saves[fd] = save;
+		save = tempsafe;
 	}
 	return (0);
 }
 
-char	*get_line(int fd)
+char	*get_line(char *save)
 {
 	char	*line;
 	char	*linebreak;
 
-	if (g_saves[fd] == NULL)
+	if (save == NULL)
 		return (NULL);
-	linebreak = ft_strchr(g_saves[fd], '\n');
+	linebreak = ft_strchr(save, '\n');
 	if (linebreak == NULL || linebreak[1] == '\0')
 	{
-		line = ft_strdup(g_saves[fd]);
-		free(g_saves[fd]);
-		g_saves[fd] = NULL;
+		line = ft_strdup(save);
+		free(save);
+		save = NULL;
 	}
 	else
 	{
-		line = ft_substr(g_saves[fd], 0, linebreak - g_saves[fd] + 1);
-		ft_strlcpy(g_saves[fd], linebreak + 1, (ft_strlen(linebreak + 1) + 1));
+		line = ft_substr(save, 0, linebreak - save + 1);
+		ft_strlcpy(save, linebreak + 1, (ft_strlen(linebreak + 1) + 1));
 	}
 	return (line);
 }
@@ -83,33 +81,26 @@ char	*get_next_line(int fd)
 {
 	int		status;
 	char	*line;
+	static char	*saves[OPEN_MAX];
 
 	if (fd < 0)
 		return (NULL);
-	while ((found_linebreak(fd) == 0))
+	while ((found_linebreak(saves[fd]) == 0))
 	{
-		status = read_chunk(fd);
+		status = read_chunk(fd, saves[fd]);
 		if (status == GNLERROR)
+		{
+			if (saves[fd] != NULL)
+			{
+
+				free(saves[fd]);
+				saves[fd] = NULL;
+			}
 			return (NULL);
+		}
 		if (status == GNLEOF)
 			break ;
 	}
-	line = get_line(fd);
+	line = get_line(saves[fd]);
 	return (line);
-}
-
-void	gnl_clear(void)
-{
-	size_t	fd;
-
-	fd = 0;
-	while (fd < OPEN_MAX)
-	{
-		if (g_saves[fd] != NULL)
-		{
-			free(g_saves[fd]);
-			g_saves[fd] = NULL;
-		}
-		fd++;
-	}
 }

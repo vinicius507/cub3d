@@ -25,8 +25,6 @@ enum e_gnlstatus
 	GNLEOF,
 };
 
-void	gnl_clear(void);
-
 char	*get_next_line(int fd);
 
 #endif
