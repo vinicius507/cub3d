@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 16:56:03 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/12/23 17:24:19 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/14 15:38:10 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ char	*get_line(char *save)
  */
 char	*get_next_line(int fd)
 {
-	int		status;
-	char	*line;
+	int			status;
+	char		*line;
 	static char	*saves[OPEN_MAX];
 
 	if (fd < 0)
@@ -92,7 +92,6 @@ char	*get_next_line(int fd)
 		{
 			if (saves[fd] != NULL)
 			{
-
 				free(saves[fd]);
 				saves[fd] = NULL;
 			}
