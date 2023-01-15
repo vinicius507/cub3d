@@ -79,6 +79,7 @@ t_err	load_map_config(const char *filename, t_config *config)
 	else
 		err = error_from("error while loading map configuration",
 				strerror(errno));
+	gnl_clear();
 	close(fd);
 	return (err);
 }
