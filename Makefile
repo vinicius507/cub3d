@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 12:35:24 by vgoncalv          #+#    #+#              #
-#    Updated: 2023/01/05 18:16:52 by lufelip2         ###   ########.fr        #
+#    Updated: 2023/01/14 17:20:29 by vgoncalv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIBS_FLAGS = $(LIBFT_FLAGS) $(LIBMLX_FLAGS)
 LIBS_INCLUDES = $(LIBFT_INCLUDES_DIR)
 SRCS_DIR := ./src
 vpath %.c $(SRCS_DIR)
-SRCS = main.c error.c parse_args.c config.c map_config.c
+SRCS = main.c error.c parse_args.c config.c
 
 OBJS = $(addprefix $(BUILD_DIR)/,$(SRCS:%.c=%.o))
 BUILD_DIR = ./build

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv>                        +#+  +:+       +#+        */
+/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 15:26:16 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/12/28 12:22:59 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:35:00 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,20 @@
 
 # include <stdint.h>
 
-# include "error.h"
-
-typedef const char	*t_texture_path;
-
-typedef uint32_t	t_color;
+typedef const char	*t_config_option;
 
 typedef struct s_config
 {
-	t_texture_path	no;
-	t_texture_path	so;
-	t_texture_path	we;
-	t_texture_path	ea;
-	t_color			floor;
-	t_color			ceiling;
+	t_config_option	no;
+	t_config_option	so;
+	t_config_option	we;
+	t_config_option	ea;
+	t_config_option	floor;
+	t_config_option	ceiling;
 }	t_config;
-
-t_err	set_config_option(t_config *config, char *option, char *value);
 
 void	teardown_config(t_config *config);
 
-t_err	load_map_config(const char *filename, t_config *config);
+int		load_config(const char *filename, t_config *config);
 
 #endif
