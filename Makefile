@@ -6,7 +6,7 @@
 #    By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 12:35:24 by vgoncalv          #+#    #+#              #
-#    Updated: 2023/01/14 17:20:29 by vgoncalv         ###   ########.fr        #
+#    Updated: 2023/01/15 13:16:11 by vgoncalv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,9 @@ LIBMLX_FLAGS = -lXext -lmlx -lX11
 
 LIBS_FLAGS = $(LIBFT_FLAGS) $(LIBMLX_FLAGS)
 LIBS_INCLUDES = $(LIBFT_INCLUDES_DIR)
-SRCS_DIR := ./src
+SRCS_DIR := ./src ./src/config
 vpath %.c $(SRCS_DIR)
-SRCS = main.c error.c parse_args.c config.c
+SRCS = main.c error.c parse_args.c config.c load_config.c
 
 OBJS = $(addprefix $(BUILD_DIR)/,$(SRCS:%.c=%.o))
 BUILD_DIR = ./build

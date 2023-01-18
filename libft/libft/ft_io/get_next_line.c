@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 16:56:03 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/01/15 11:37:46 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/18 07:51:47 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <libft/ft_string.h>
 #include <libft/ft_io/get_next_line.h>
 
+// FIX: global variable
 static char	*g_saves[OPEN_MAX] = {};
 
 int	found_linebreak(int fd)
@@ -25,6 +26,7 @@ int	found_linebreak(int fd)
 	return ((ft_strchr(g_saves[fd], '\n') != NULL));
 }
 
+// FIX: memory leak
 int	read_chunk(int fd)
 {
 	char	*buf;

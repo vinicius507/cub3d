@@ -6,18 +6,19 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:34:02 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/01/14 18:07:51 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/18 08:11:18 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-#include "cub3d.h"
+#include "config/config.h"
 #include "error.h"
+#include "cub3d.h"
 
 void	teardown(t_config *config)
 {
-	teardown_config(config);
+	config_teardown(config);
 }
 
 // TODO init projection
@@ -42,6 +43,7 @@ int	main(int argc, char **argv)
 	ft_printf("config.ea=%s\n", config.ea);
 	ft_printf("config.floor=%s\n", config.floor);
 	ft_printf("config.ceiling=%s\n", config.ceiling);
+	ft_printf("config.map_lines:\n--START--\n'%s'\n--END--\n", config.map_lines);
 	teardown(&config);
 	return (EXIT_SUCCESS);
 }
