@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 16:56:03 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/01/18 07:51:47 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/01 20:16:39 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,63 +16,59 @@
 #include <libft/ft_string.h>
 #include <libft/ft_io/get_next_line.h>
 
-// FIX: global variable
-static char	*g_saves[OPEN_MAX] = {};
-
-int	found_linebreak(int fd)
+static int	found_linebreak(char *save)
 {
-	if (g_saves[fd] == NULL)
+	if (save == NULL)
 		return (0);
-	return ((ft_strchr(g_saves[fd], '\n') != NULL));
+	return ((ft_strchr(save, '\n') != NULL));
 }
 
-// FIX: memory leak
-int	read_chunk(int fd)
+static int	read_chunk(int fd, char **save)
 {
-	char	*buf;
-	char	*save;
+	char	*temp;
 	ssize_t	bytes_read;
+	char	buf[BUFFER_SIZE + 1];
 
-	buf = ft_calloc(1, BUFFER_SIZE + 1);
-	if (buf == NULL)
-		return (1);
+	ft_bzero(buf, BUFFER_SIZE + 1);
 	bytes_read = read(fd, buf, BUFFER_SIZE);
 	if (bytes_read < 0)
 		return (GNLERROR);
 	if (bytes_read == 0)
 		return (GNLEOF);
-	if (g_saves[fd] == NULL)
-		g_saves[fd] = ft_strdup(buf);
+	if (*save == NULL)
+		*save = ft_strdup(buf);
 	else
 	{
-		save = ft_strjoin(g_saves[fd], buf);
-		free(g_saves[fd]);
-		if (save == NULL)
+		temp = ft_strjoin(*save, buf);
+		free(*save);
+		*save = temp;
+		if (*save == NULL)
 			return (GNLERROR);
-		g_saves[fd] = save;
 	}
 	return (0);
 }
 
-char	*get_line(int fd)
+char	*get_line(char **save)
 {
+	char	*temp;
 	char	*line;
 	char	*linebreak;
+	size_t	line_size;
 
-	if (g_saves[fd] == NULL)
+	if (*save == NULL)
 		return (NULL);
-	linebreak = ft_strchr(g_saves[fd], '\n');
-	if (linebreak == NULL || linebreak[1] == '\0')
-	{
-		line = ft_strdup(g_saves[fd]);
-		free(g_saves[fd]);
-		g_saves[fd] = NULL;
-	}
-	else
-	{
-		line = ft_substr(g_saves[fd], 0, linebreak - g_saves[fd] + 1);
-		ft_strlcpy(g_saves[fd], linebreak + 1, (ft_strlen(linebreak + 1) + 1));
-	}
+	temp = NULL;
+	linebreak = ft_strchr(*save, '\n');
+	line_size = ft_strlen(*save);
+	if (linebreak != NULL && linebreak[1] != '\0')
+		line_size = line_size - ft_strlen(linebreak + 1);
+	line = ft_substr(*save, 0, line_size);
+	if ((ft_strlen(*save + line_size) > 0))
+		temp = ft_strdup(*save + line_size);
+	free(*save);
+	*save = NULL;
+	if (temp != NULL)
+		*save = temp;
 	return (line);
 }
 
@@ -83,42 +79,20 @@ char	*get_line(int fd)
  */
 char	*get_next_line(int fd)
 {
-	int		status;
-	char	*line;
+	int			status;
+	char		*line;
+	static char	*saves[OPEN_MAX];
 
 	if (fd < 0)
 		return (NULL);
-	while ((found_linebreak(fd) == 0))
+	while ((found_linebreak(saves[fd]) == 0))
 	{
-		status = read_chunk(fd);
+		status = read_chunk(fd, &(saves[fd]));
 		if (status == GNLERROR)
-		{
-			if (g_saves[fd] != NULL)
-			{
-				free(g_saves[fd]);
-				g_saves[fd] = NULL;
-			}
 			return (NULL);
-		}
 		if (status == GNLEOF)
 			break ;
 	}
-	line = get_line(fd);
+	line = get_line(&(saves[fd]));
 	return (line);
-}
-
-void	gnl_clear(void)
-{
-	size_t	fd;
-
-	fd = 0;
-	while (fd < OPEN_MAX)
-	{
-		if (g_saves[fd] != NULL)
-		{
-			free(g_saves[fd]);
-			g_saves[fd] = NULL;
-		}
-		fd++;
-	}
 }
