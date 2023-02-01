@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 16:56:03 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/02/01 20:16:39 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/01 20:17:56 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,11 @@ char	*get_next_line(int fd)
 	{
 		status = read_chunk(fd, &(saves[fd]));
 		if (status == GNLERROR)
+		{
+			free(saves[fd]);
+			saves[fd] = NULL;
 			return (NULL);
+		}
 		if (status == GNLEOF)
 			break ;
 	}
