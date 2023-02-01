@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv>                        +#+  +:+       +#+        */
+/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 15:58:41 by vgoncalv          #+#    #+#             */
-/*   Updated: 2022/09/04 16:05:00 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:03:36 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ enum e_gnlstatus
 	GNLERROR = 1,
 	GNLEOF,
 };
-
-void	gnl_clear(void);
 
 char	*get_next_line(int fd);
 
