@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:41:59 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/01/18 08:53:03 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/01 20:17:17 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int	load_config(const char *filename, t_config *config)
 		close(fd);
 		return (1);
 	}
-	gnl_clear();
 	close(fd);
 	return (0);
 }
