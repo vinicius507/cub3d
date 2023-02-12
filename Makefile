@@ -3,30 +3,31 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 12:35:24 by vgoncalv          #+#    #+#              #
-#    Updated: 2023/01/15 13:16:11 by vgoncalv         ###   ########.fr        #
+#    Updated: 2023/02/11 21:09:07 by lufelip2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra
 
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_FLAGS = -L./$(LIBFT_DIR) -lft
 LIBFT_INCLUDES_DIR = ./$(LIBFT_DIR)/include ./$(LIBFT_DIR)
 
-LIBMLX_FLAGS = -lXext -lmlx -lX11
+LIBMLX_FLAGS = -lXext -lmlx -lX11 -lm
 
 LIBS_FLAGS = $(LIBFT_FLAGS) $(LIBMLX_FLAGS)
 LIBS_INCLUDES = $(LIBFT_INCLUDES_DIR)
 SRCS_DIR := ./src ./src/config
 vpath %.c $(SRCS_DIR)
-SRCS = main.c error.c parse_args.c config.c load_config.c
+SRCS = main.c error.c parse_args.c config.c load_config.c render.c \
+		load_mlx.c load_hooks.c exit_raycast.c background.c
 
 OBJS = $(addprefix $(BUILD_DIR)/,$(SRCS:%.c=%.o))
 BUILD_DIR = ./build

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:34:02 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/01/18 08:11:18 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/11 21:15:34 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int argc, char **argv)
 {
 	t_config	config;
 	const char	*config_path;
+	t_screen screen;
 
 	ft_bzero(&config, sizeof(t_config));
 	config_path = parse_args(argc, argv);
@@ -44,6 +45,9 @@ int	main(int argc, char **argv)
 	ft_printf("config.floor=%s\n", config.floor);
 	ft_printf("config.ceiling=%s\n", config.ceiling);
 	ft_printf("config.map_lines:\n--START--\n'%s'\n--END--\n", config.map_lines);
+	screen = load_mlx(1280, 720);
+	load_hooks(&screen);
+	mlx_loop(screen.mlx);
 	teardown(&config);
 	return (EXIT_SUCCESS);
 }
