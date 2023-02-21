@@ -33,4 +33,4 @@ jobs:
       - name: GNU make version
         run: make --version
       - name: Build
-        run: make
+        run: make CC=clang-12
