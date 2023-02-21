@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 15:26:16 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/02/21 13:29:49 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:06:01 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 # include "../cub3d.h"
 
-# define ERR_CFG_UNKNOWN_OPTION "Error\nUnknown configuration option: %s"
-# define ERR_CFG_TEXTURE_NOT_LOADED "Error\nCould not load XPM texture: %s"
+# define ERR_CFG_UNKNOWN_OPTION "Error\nconfig: expected option, got: '%s'"
+# define ERR_CFG_TEXTURE_NOT_LOADED "Error\nCould not load XPM texture: '%s'"
+# define ERR_CFG_WRONG_OPTION_VALUE "Error\nconfig: %s: option can't be empty"
+# define ERR_CFG_UNSET_OPTIONS "Error\nconfig: configuration incomplete"
 
 /**
  * Config structure, mainly for storing the raw data from the config file.

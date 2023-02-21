@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:12:06 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/02/21 15:40:54 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:01:07 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static char	**parse_option(char *line)
 	value = option_value(line);
 	if (value == NULL)
 	{
+		ft_dprintf(STDERR_FILENO, ERR_CFG_WRONG_OPTION_VALUE, key);
 		free(key);
 		return (NULL);
 	}
@@ -85,4 +86,26 @@ int	parse_map(t_cub *cub, char **lines, size_t *lineno)
 	(void)lines;
 	(void)lineno;
 	return (0);
+}
+
+int	parse_config(t_cub *cub, char **lines)
+{
+	int		unset;
+	size_t	lineno;
+
+	lineno = 0;
+	unset = parse_options(cub, lines, &lineno);
+	if (unset == -1)
+	{
+		ft_dprintf(
+			STDERR_FILENO,
+			"Error\nfatal: config parse error\n");
+		return (-1);
+	}
+	else if (unset > 0)
+	{
+		ft_dprintf(STDERR_FILENO, ERR_CFG_UNSET_OPTIONS);
+		return (-1);
+	}
+	return (parse_map(cub, lines, &lineno));
 }

@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 23:18:54 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/02/21 13:26:12 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:04:05 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*option_key(char *line)
 	char	*space;
 
 	space = ft_strchr(line, ' ');
-	if (space == NULL)
+	if (space == NULL || space == line)
 		return (ft_strdup(line));
 	return (ft_substr(line, 0, space - line));
 }
