@@ -6,12 +6,17 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 15:26:16 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/01/15 13:06:17 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:29:49 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONFIG_H
 # define CONFIG_H
+
+# include "../cub3d.h"
+
+# define ERR_CFG_UNKNOWN_OPTION "Error\nUnknown configuration option: %s"
+# define ERR_CFG_TEXTURE_NOT_LOADED "Error\nCould not load XPM texture: %s"
 
 /**
  * Config structure, mainly for storing the raw data from the config file.
@@ -28,14 +33,20 @@ typedef struct s_config
 	char	*map_lines;
 }	t_config;
 
-int		config_set_option(t_config *config, char *option, char *value);
+char	**read_config_file(int fd);
 
-int		config_should_read_map(t_config *config);
+char	*option_key(char *line);
 
-int		config_add_map_line(t_config *config, char *line);
+char	*option_value(char *line);
 
-void	config_teardown(t_config *config);
+int		load_texture_option(t_cub *cub, int side, char *path);
 
-int		load_config(const char *filename, t_config *config);
+int		load_color_option(t_cub *cub, char key, char *value);
+
+int		config_set_option(t_cub *cub, char *key, char *value);
+
+int		parse_options(t_cub *cub, char **lines, size_t *lineno);
+
+int		parse_map(t_cub *cub, char **lines, size_t *lineno);
 
 #endif

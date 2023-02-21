@@ -6,7 +6,7 @@
 #    By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 12:35:24 by vgoncalv          #+#    #+#              #
-#    Updated: 2023/01/15 13:16:11 by vgoncalv         ###   ########.fr        #
+#    Updated: 2023/02/21 12:48:04 by vgoncalv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIBS_FLAGS = $(LIBFT_FLAGS) $(LIBMLX_FLAGS)
 LIBS_INCLUDES = $(LIBFT_INCLUDES_DIR)
 SRCS_DIR := ./src ./src/config
 vpath %.c $(SRCS_DIR)
-SRCS = main.c error.c parse_args.c config.c load_config.c
+SRCS = main.c error.c parse_args.c utils.c file.c options.c parsers.c color.c render.c cub.c
 
 OBJS = $(addprefix $(BUILD_DIR)/,$(SRCS:%.c=%.o))
 BUILD_DIR = ./build
