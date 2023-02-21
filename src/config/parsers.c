@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:12:06 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/02/21 13:29:37 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:40:54 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,38 +23,60 @@ static int	is_empty_line(char *line)
 	return (0);
 }
 
+static char	**parse_option(char *line)
+{
+	char	*key;
+	char	*value;
+	char	**key_value;
+
+	key = option_key(line);
+	if (key == NULL)
+		return (NULL);
+	value = option_value(line);
+	if (value == NULL)
+	{
+		free(key);
+		return (NULL);
+	}
+	key_value = ft_calloc(2, sizeof(char *));
+	if (key_value == NULL)
+	{
+		free(key);
+		free(value);
+		return (NULL);
+	}
+	key_value[0] = key;
+	key_value[1] = value;
+	return (key_value);
+}
+
 int	parse_options(t_cub *cub, char **lines, size_t *lineno)
 {
 	int		unset;
-	char	*key;
-	char	*value;
+	char	**key_value;
 
 	unset = 6;
 	while (lines[*lineno] != NULL && unset > 0)
 	{
 		if ((is_empty_line(lines[*lineno]) != 0))
 			continue ;
-		key = option_key(lines[*lineno]);
-		if (key == NULL)
-			return (1);
-		value = option_value(lines[*lineno]);
-		if (value == NULL)
+		key_value = parse_option(lines[*lineno]);
+		if (key_value == NULL)
+			return (-1);
+		if ((config_set_option(cub, key_value[0], key_value[1]) != 0))
 		{
-			free(key);
-			return (1);
+			free(key_value[0]);
+			free(key_value[1]);
+			free(key_value);
+			return (-1);
 		}
-		if ((config_set_option(cub, key, value) != 0))
-		{
-			free(key);
-			free(value);
-			return (1);
-		}
-		free(key);
-		free(value);
+		free(key_value[0]);
+		free(key_value[1]);
+		free(key_value);
 		unset -= 1;
 		*lineno += 1;
 	}
-	return (0);
+	return (unset);
 }
 
 int	parse_map(t_cub *cub, char **lines, size_t *lineno)
