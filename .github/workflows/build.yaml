@@ -20,17 +20,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-      with:
-        submodules: recursive
-    - name: Install dependencies
-      run: |
-        sudo apt install -y clang-12 libxext-dev libbsd-dev libx11-6
-        git clone https://github.com/42Paris/minilibx-linux /tmp/libmlx
-        make -C /tmp/libmlx
-        sudo mv /tmp/libmlx/libmlx.a /usr/local/lib/libmlx.a
-        sudo mv /tmp/libmlx/mlx.h /usr/local/include/mlx.h
-    - name: GNU make version
-      run: make --version
-    - name: Build
-      run: make
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Install dependencies
+        run: |
+          sudo apt install -y clang-12 libxext-dev libbsd-dev libx11-6 libx11-dev
+          git clone https://github.com/42Paris/minilibx-linux /tmp/libmlx
+          make -C /tmp/libmlx
+          sudo mv /tmp/libmlx/libmlx.a /usr/local/lib/libmlx.a
+          sudo mv /tmp/libmlx/mlx.h /usr/local/include/mlx.h
+      - name: GNU make version
+        run: make --version
+      - name: Build
+        run: make
