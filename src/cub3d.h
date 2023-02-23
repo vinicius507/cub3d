@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:39:36 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/02/21 12:47:50 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:57:54 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,25 @@ typedef struct s_screen
 	t_img		walls[W_COUNT];
 }	t_screen;
 
+typedef struct s_map
+{
+	char	**rows;
+	size_t	width;
+	size_t	height;
+}	t_map;
+
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	double	angle;
+}	t_player;
+
 typedef struct s_cub
 {
+	t_map		map;
 	t_screen	screen;
+	t_player	player;
 }	t_cub;
 
 void	errmsg(const char *eror);
@@ -67,6 +83,8 @@ char	*parse_args(int argc, char **argv);
 t_color	rgb(char r, char g, char b);
 
 void	free_str_array(char **config);
+
+int		str_is_whitespace_only(char *line);
 
 int		cub_load_config(t_cub *cub, const char *filename);
 

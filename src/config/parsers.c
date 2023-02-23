@@ -6,22 +6,12 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:12:06 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/02/21 16:01:07 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/23 20:01:56 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "config.h"
 #include <unistd.h>
-
-static int	is_empty_line(char *line)
-{
-	char	*trimmed;
-
-	trimmed = ft_strtrim(line, " \n\r\f\v\t");
-	if (trimmed == NULL || trimmed[0] == '\0')
-		return (1);
-	return (0);
-}
 
 static char	**parse_option(char *line)
 {
@@ -59,7 +49,7 @@ int	parse_options(t_cub *cub, char **lines, size_t *lineno)
 	unset = 6;
 	while (lines[*lineno] != NULL && unset > 0)
 	{
-		if ((is_empty_line(lines[*lineno]) != 0))
+		if ((str_is_whitespace_only(lines[*lineno]) != 0))
 			continue ;
 		key_value = parse_option(lines[*lineno]);
 		if (key_value == NULL)
@@ -82,9 +72,15 @@ int	parse_options(t_cub *cub, char **lines, size_t *lineno)
 
 int	parse_map(t_cub *cub, char **lines, size_t *lineno)
 {
-	(void)cub;
-	(void)lines;
-	(void)lineno;
+	while ((str_is_whitespace_only(lines[*lineno])))
+		*lineno += 1;
+	cub->map = read_map(&lines[*lineno]);
+	if (cub->map.rows == NULL)
+		return (1);
+	if ((map_is_valid(&cub->map) == 0))
+		return (1);
+	if ((set_player_position(cub) != 0))
+		return (1);
 	return (0);
 }
 
