@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:12:06 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/02/23 20:01:56 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/28 20:10:52 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,11 @@ int	parse_options(t_cub *cub, char **lines, size_t *lineno)
 int	parse_map(t_cub *cub, char **lines, size_t *lineno)
 {
 	while ((str_is_whitespace_only(lines[*lineno])))
+	{
+		if (lines[*lineno] == NULL)
+			return (1);
 		*lineno += 1;
+	}
 	cub->map = read_map(&lines[*lineno]);
 	if (cub->map.rows == NULL)
 		return (1);
