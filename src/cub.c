@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:55:18 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/02/21 13:18:37 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/28 20:19:08 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,20 @@ int	cub_exit(t_cub *cub)
 {
 	if (cub->screen.buffer.ptr != NULL)
 		mlx_destroy_image(cub->screen.mlx, cub->screen.buffer.ptr);
+	if (cub->screen.walls[W_NO].ptr != NULL)
+		mlx_destroy_image(cub->screen.mlx, cub->screen.walls[W_NO].ptr);
+	if (cub->screen.walls[W_SO].ptr != NULL)
+		mlx_destroy_image(cub->screen.mlx, cub->screen.walls[W_SO].ptr);
+	if (cub->screen.walls[W_WE].ptr != NULL)
+		mlx_destroy_image(cub->screen.mlx, cub->screen.walls[W_WE].ptr);
+	if (cub->screen.walls[W_EA].ptr != NULL)
+		mlx_destroy_image(cub->screen.mlx, cub->screen.walls[W_EA].ptr);
 	if (cub->screen.window != NULL)
 		mlx_destroy_window(cub->screen.mlx, cub->screen.window);
 	if (cub->screen.mlx != NULL)
 		free(cub->screen.mlx);
+	if (cub->map.rows != NULL)
+		free_str_array(cub->map.rows);
 	ft_bzero(cub, sizeof(t_cub));
 	exit(EXIT_SUCCESS);
 }
