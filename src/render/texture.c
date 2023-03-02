@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 13:40:48 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/03/02 00:49:23 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/02 01:45:48 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	wall_pixel_put(t_screen *screen, t_point px, t_hit *hit, int height, int wa
 	t_img	*wall;
 	double	texture_x;
 
+	texture_x = 0;
 	if (hit->side == W_NO|| hit->side == W_SO)
 		texture_x = hit->x % 64;
 	else if (hit->side == W_WE || hit->side == W_EA)
