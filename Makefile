@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 12:35:24 by vgoncalv          #+#    #+#              #
-#    Updated: 2023/02/23 20:00:59 by vgoncalv         ###   ########.fr        #
+#    Updated: 2023/03/02 01:19:56 by lufelip2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,14 +20,16 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_FLAGS = -L./$(LIBFT_DIR) -lft
 LIBFT_INCLUDES_DIR = ./$(LIBFT_DIR)/include ./$(LIBFT_DIR)
 
-LIBMLX_FLAGS = -lXext -lmlx -lX11
+LIBMLX_FLAGS = -lXext -lmlx -lX11 -lm
 
 LIBS_FLAGS = $(LIBFT_FLAGS) $(LIBMLX_FLAGS)
 LIBS_INCLUDES = $(LIBFT_INCLUDES_DIR)
-SRCS_DIR := ./src ./src/config
+SRCS_DIR := ./src ./src/config ./src/render
 vpath %.c $(SRCS_DIR)
 SRCS = main.c error.c parse_args.c utils.c file.c options.c parsers.c color.c \
-			 render.c cub.c read_map.c map_validation.c player.c
+			render.c cub.c read_map.c map_validation.c player.c background.c \
+			draw_aux.c raycast_aux.c raycast.c texture.c mouse_handler.c \
+			keyboard_handler.c
 
 OBJS = $(addprefix $(BUILD_DIR)/,$(SRCS:%.c=%.o))
 BUILD_DIR = ./build

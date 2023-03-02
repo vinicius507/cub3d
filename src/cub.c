@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:55:18 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/02/28 20:19:08 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/02 01:33:56 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,24 @@
 #include <mlx.h>
 #include <string.h>
 #include <unistd.h>
+
+char line_0[] = {1, 1, 1, 1, 1, 1, 1};
+char line_1[] = {1, 0, 0, 0, 0, 0, 1};
+char line_2[] = {1, 0, 0, 0, 0, 0, 1};
+char line_3[] = {1, 0, 0, 0, 0, 0, 1};
+char line_4[] = {1, 0, 0, 0, 0, 0, 1};
+char line_5[] = {1, 0, 0, 0, 0, 0, 1};
+char line_6[] = {1, 1, 1, 1, 1, 1, 1};
+
+char *worldMapp[] = {
+	line_0,
+	line_1,
+	line_2,
+	line_3,
+	line_4,
+	line_5,
+	line_6
+};
 
 static void	init_mlx(t_cub *cub)
 {
@@ -90,7 +108,15 @@ void	cub_init(t_cub *cub)
 			SCREEN_WIDTH,
 			SCREEN_HEIGHT,
 			"Cub3D");
-	mlx_loop_hook(cub->screen.window, &render, cub);
+	cub->player.x = 224;
+	cub->player.y = 300;
+	cub->player.angle = 0;
+	cub->map.rows = worldMapp;
+	cub->map.height = 7;
+	cub->map.width = 7;
+	mlx_loop_hook(cub->screen.mlx, &render, cub);
 	mlx_hook(cub->screen.window, 17, 0, &cub_exit, cub);
+	mlx_hook(cub->screen.window, 2, 1L<<0, &handle_keyboard, cub);
+	mlx_hook(cub->screen.window, 6, 1L<<6, &handle_mouse, cub);
 	mlx_loop(cub->screen.mlx);
 }
