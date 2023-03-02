@@ -6,12 +6,30 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 15:26:16 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/01/15 13:06:17 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/02/23 20:12:58 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONFIG_H
 # define CONFIG_H
+
+# include "../cub3d.h"
+
+# define ERR_CFG_UNKNOWN_OPTION "Error\nconfig: expected option, got: '%s'\n"
+# define ERR_CFG_TEXTURE_NOT_LOADED "Error\nCould not load XPM texture: '%s'\n"
+# define ERR_CFG_WRONG_OPTION_VALUE "Error\nconfig: %s: option can't be empty\n"
+# define ERR_CFG_UNSET_OPTIONS "Error\nconfig: configuration incomplete\n"
+# define ERR_CFG_MAP_UNEXPECTED_CHR "Error\nmap(%d, %d): unexpected char: %c\n"
+# define ERR_CFG_MAP_NO_PLAYER "Error\nmap: no player inside the map\n"
+# define ERR_CFG_MAP_TOO_MANY_PLAYERS "Error\nmap: too many players: %d\n"
+
+enum e_tile
+{
+	TL_VOID = 1<<0,
+	TL_WALL = 1<<1,
+	TL_PLAYER = 1<<2,
+	TL_FLOOR = 1<<3,
+};
 
 /**
  * Config structure, mainly for storing the raw data from the config file.
@@ -28,14 +46,26 @@ typedef struct s_config
 	char	*map_lines;
 }	t_config;
 
-int		config_set_option(t_config *config, char *option, char *value);
+char	**read_config_file(int fd);
 
-int		config_should_read_map(t_config *config);
+char	*option_key(char *line);
 
-int		config_add_map_line(t_config *config, char *line);
+char	*option_value(char *line);
 
-void	config_teardown(t_config *config);
+int		load_texture_option(t_cub *cub, int side, char *path);
 
-int		load_config(const char *filename, t_config *config);
+int		load_color_option(t_cub *cub, char key, char *value);
+
+int		config_set_option(t_cub *cub, char *key, char *value);
+
+int		parse_options(t_cub *cub, char **lines, size_t *lineno);
+
+t_map	read_map(char **lines);
+
+int		map_is_valid(t_map *map);
+
+int		set_player_position(t_cub *cub);
+
+int		parse_map(t_cub *cub, char **lines, size_t *lineno);
 
 #endif
