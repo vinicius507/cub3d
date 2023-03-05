@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   mouse_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/21 12:03:35 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/02 00:22:56 by lufelip2         ###   ########.fr       */
+/*   Created: 2023/02/22 17:04:05 by lufelip2          #+#    #+#             */
+/*   Updated: 2023/03/04 20:45:09 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_color	rgb(char r, char g, char b)
+int	handle_mouse(int x, int y, t_cub *cub)
 {
-	t_color	color;
+	static int last_x = 640;
+	static int last_y = 360;
 
-	color.rgb[3] = 0x00;
-	color.rgb[2] = r & 0xff;
-	color.rgb[1] = g & 0xff;
-	color.rgb[0] = b & 0xff;
-	return (color);
+	(void)y;
+	if (x > last_x)
+	{
+		cub->player.angle--;
+		if (cub->player.angle < 0)
+			cub->player.angle = 359;
+	}
+	if (x < last_x)
+	{
+		cub->player.angle++;
+		if (cub->player.angle == 359)
+			cub->player.angle = 0;
+	}
+	mlx_mouse_move(cub->screen.mlx, cub->screen.window, last_x, last_y);
+	return (0);
 }

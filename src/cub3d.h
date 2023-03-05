@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:39:36 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/02/23 19:57:54 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:10:30 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 # include <libft.h>
 # include <mlx.h>
-
+# include <math.h>
+# include <X11/keysym.h>
+# include <stdio.h>
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
 
@@ -30,8 +32,8 @@ enum e_wall_direction
 
 typedef struct s_img
 {
-	void	*ptr;
-	char	*data;
+	void	*ptr; // mlx_img
+	char	*data; // addr
 	int		bpp;
 	int		line_len;
 	int		endianess;
@@ -64,9 +66,9 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	double	x;
-	double	y;
-	double	angle;
+	double		x;
+	double		y;
+	double	angle; // Check double possibilitie
 }	t_player;
 
 typedef struct s_cub
@@ -93,5 +95,9 @@ int		render(t_cub *cub);
 int		cub_exit(t_cub *cub);
 
 void	cub_init(t_cub *cub);
+
+int		handle_mouse(int x, int y, t_cub *cub);
+
+int		handle_keyboard(int keysym, t_cub *cub);
 
 #endif

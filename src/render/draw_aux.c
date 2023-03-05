@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/21 12:03:35 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/02 00:22:56 by lufelip2         ###   ########.fr       */
+/*   Created: 2023/02/26 15:18:05 by lufelip2          #+#    #+#             */
+/*   Updated: 2023/02/26 15:18:12 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "projection.h"
 
-t_color	rgb(char r, char g, char b)
+double radians(int nbr)
 {
-	t_color	color;
-
-	color.rgb[3] = 0x00;
-	color.rgb[2] = r & 0xff;
-	color.rgb[1] = g & 0xff;
-	color.rgb[0] = b & 0xff;
-	return (color);
+	return (nbr * (M_PI / 180));
 }
