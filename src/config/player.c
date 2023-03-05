@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:52:52 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/02/23 20:13:15 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/03/04 21:25:18 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,24 @@ int	set_player_postition_error(int found)
 	else
 		ft_dprintf(STDERR_FILENO, ERR_CFG_MAP_TOO_MANY_PLAYERS, found);
 	return (1);
+}
+
+void	set_player_angle(t_player *player, char side)
+{
+	if (side == 'E')
+		player->angle = 0;
+	else if (side == 'N')
+		player->angle = 90;
+	else if (side == 'W')
+		player->angle = 180;
+	else
+		player->angle = 270;
+}
+
+void	set_player_coordinates(t_player *player, size_t x, size_t y)
+{
+	player->x = x * 64;
+	player->y = y * 64;
 }
 
 int	set_player_position(t_cub *cub)
@@ -39,8 +57,8 @@ int	set_player_position(t_cub *cub)
 		{
 			if (ft_strchr("NSWE", map->rows[y][x]) && found++ == 0)
 			{
-				cub->player.x = (double)(x + 1) / 2;
-				cub->player.y = (double)(y + 1) / 2;
+				set_player_coordinates(&cub->player, x, y);
+				set_player_angle(&cub->player, map->rows[y][x]);
 			}
 			x++;
 		}
@@ -50,3 +68,4 @@ int	set_player_position(t_cub *cub)
 		return (set_player_postition_error(found));
 	return (0);
 }
+

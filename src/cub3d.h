@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:39:36 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/03/02 01:20:49 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:10:30 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <mlx.h>
 # include <math.h>
 # include <X11/keysym.h>
-
+# include <stdio.h>
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
 
@@ -66,9 +66,9 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	int	x;
-	int	y;
-	int	angle; // Check double possibilitie
+	double		x;
+	double		y;
+	double	angle; // Check double possibilitie
 }	t_player;
 
 typedef struct s_cub

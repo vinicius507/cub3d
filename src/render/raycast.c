@@ -6,11 +6,12 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 13:35:18 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/03/02 00:41:36 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:27:10 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "projection.h"
+#include <unistd.h>
 
 t_hit	raycast(int direction, t_player player, t_map *world_map)
 {
@@ -48,12 +49,12 @@ int	what_im_doing(t_screen *screen, t_player player, t_map *world_map) // Also k
 
 	float angle_rays = 60 / 1280.0;
 	direction = player.angle + 30;
-	int projection_distance = 720.0 / tan(radians(30));
+	double projection_distance = 720.0 / tan(radians(30));
 	int i = 0;
 	while (direction > (player.angle - 30.0))
 	{
 		hit = raycast(direction, player, world_map);
-		int height = ceil(64 / (float)hit.distance * projection_distance);
+		int height = floor(64 / hit.distance * projection_distance);
 		int j = 360 - (height / 2);
 		int x = 0;
 		while (x <= height)

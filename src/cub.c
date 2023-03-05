@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:55:18 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/02 01:33:56 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/04 21:25:28 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,7 @@ void	cub_init(t_cub *cub)
 			SCREEN_WIDTH,
 			SCREEN_HEIGHT,
 			"Cub3D");
-	cub->player.x = 224;
-	cub->player.y = 300;
-	cub->player.angle = 0;
-	cub->map.rows = worldMapp;
-	cub->map.height = 7;
-	cub->map.width = 7;
+	mlx_mouse_hide(cub->screen.mlx, cub->screen.window);
 	mlx_loop_hook(cub->screen.mlx, &render, cub);
 	mlx_hook(cub->screen.window, 17, 0, &cub_exit, cub);
 	mlx_hook(cub->screen.window, 2, 1L<<0, &handle_keyboard, cub);

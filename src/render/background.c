@@ -26,7 +26,7 @@ int	pixel_get(t_img *buffer, int x, int y)
 	return (*(unsigned int *)px);
 }
 
-int	background(t_img *buffer, t_color color)
+int	background(t_img *buffer, t_color ceiling, t_color floor)
 {
 	int	x;
 	int	y;
@@ -36,7 +36,10 @@ int	background(t_img *buffer, t_color color)
 	{
 		x = 0;
 		while (x <= 1280)
-			pixel_put(buffer, x++, y, color.hex);
+			if (y <= 360)
+				pixel_put(buffer, x++, y, ceiling.hex);
+			else
+				pixel_put(buffer, x++, y, floor.hex);
 		y++;
 	}
 	return (0);

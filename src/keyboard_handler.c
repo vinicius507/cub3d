@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:39:21 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/03/02 01:19:22 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:41:48 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	hitted_wall(t_map *world_map, int x, int y)
 {
-	return (world_map->rows[x / 64][y / 64] == 1);
+	return (world_map->rows[y / 64][x / 64] == '1');
 }
 
 void	move(t_cub *cub, int x, int y)
@@ -96,7 +96,7 @@ void	move_left(t_cub *cub)
 	else if (cub->player.angle < 155)
 		move(cub, -1, 1);
 	else if (cub->player.angle < 205)
-		move(cub, 1, 0);
+		move(cub, 0, 1);
 	else if (cub->player.angle < 245)
 		move(cub, 1, 1);
 	else if (cub->player.angle < 295)
@@ -118,7 +118,7 @@ void	move_right(t_cub *cub)
 	else if (cub->player.angle < 155)
 		move(cub, 1, -1);
 	else if (cub->player.angle < 205)
-		move(cub, -1, 0);
+		move(cub, 0, -1);
 	else if (cub->player.angle < 245)
 		move(cub, -1, -1);
 	else if (cub->player.angle < 295)
