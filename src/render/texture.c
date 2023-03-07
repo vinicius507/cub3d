@@ -6,29 +6,38 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 13:40:48 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/03/04 20:13:20 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/06 23:41:40 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "projection.h"
 
-void	wall_pixel_put(t_screen *screen, t_point px, t_hit *hit, int height, int wall_y)
+void	wall_pixel_put(t_screen *screen, int x, t_hit *hit, int height)
 {
 	int		color;
 	t_img	*wall;
 	double	texture_x;
+	int		wall_y;
+	int		y;
 
+	y = 360 - (height / 2);
 	texture_x = 0;
-	if (hit->side == W_NO|| hit->side == W_SO)
+	if (hit->side == W_NO || hit->side == W_SO)
 		texture_x = (int)floor(hit->x) % 64;
 	else if (hit->side == W_WE || hit->side == W_EA)
 		texture_x = (int)floor(hit->y) % 64;
 	wall = &screen->walls[hit->side];
-	color = pixel_get(
-			wall,
-			texture_x,
-			floor(((double)wall->height / height) * wall_y));
-	pixel_put(&screen->buffer, px.x, px.y, color);
+	wall_y = 0;
+	while (wall_y <= height)
+	{
+		color = pixel_get(
+				wall,
+				texture_x,
+				floor(((double)wall->height / height) * wall_y));
+		pixel_put(&screen->buffer, x, y, color);
+		wall_y++;
+		y++;
+	}
 }
 
 int	h_side(int x_coordinate)

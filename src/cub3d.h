@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:39:36 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/03/04 20:10:30 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/06 23:50:03 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ enum e_wall_direction
 
 typedef struct s_img
 {
-	void	*ptr; // mlx_img
-	char	*data; // addr
+	void	*ptr;
+	char	*data;
 	int		bpp;
 	int		line_len;
 	int		endianess;
@@ -51,6 +51,8 @@ typedef struct s_screen
 {
 	void		*mlx;
 	void		*window;
+	float		angle_rays;
+	float		projection_distance;
 	t_img		buffer;
 	t_color		floor;
 	t_color		ceiling;
@@ -68,7 +70,7 @@ typedef struct s_player
 {
 	double		x;
 	double		y;
-	double	angle; // Check double possibilitie
+	double		angle;
 }	t_player;
 
 typedef struct s_cub
@@ -79,25 +81,20 @@ typedef struct s_cub
 }	t_cub;
 
 void	errmsg(const char *eror);
-
 char	*parse_args(int argc, char **argv);
-
 t_color	rgb(char r, char g, char b);
-
 void	free_str_array(char **config);
-
 int		str_is_whitespace_only(char *line);
-
 int		cub_load_config(t_cub *cub, const char *filename);
-
 int		render(t_cub *cub);
-
 int		cub_exit(t_cub *cub);
-
 void	cub_init(t_cub *cub);
-
 int		handle_mouse(int x, int y, t_cub *cub);
-
 int		handle_keyboard(int keysym, t_cub *cub);
+void	move_up(t_cub *cub);
+void	move_down(t_cub *cub);
+void	move_left(t_cub *cub);
+void	move_right(t_cub *cub);
+void	move(t_cub *cub, int x, int y);
 
 #endif
