@@ -6,12 +6,40 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 13:35:18 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/03/04 20:27:10 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/06 23:35:33 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "projection.h"
 #include <unistd.h>
+
+t_fpoint	cast(t_hitbox init_hitbox, t_map *world_map)
+{
+	t_hitbox	hitbox;
+	t_fpoint	point;
+	int			box_y;
+	int			box_x;
+
+	hitbox = init_hitbox;
+	point.y = -1;
+	point.x = -1;
+	while (NOT_HIT)
+	{
+		box_y = hitbox.y / BOX_SIZE;
+		box_x = hitbox.x / BOX_SIZE;
+		if (box_x < 0 || box_x > (int)world_map->width - 1)
+			return (point);
+		if (box_y < 0 || box_y > (int)world_map->height - 1)
+			return (point);
+		if (world_map->rows[box_y][box_x] == '1')
+			break ;
+		hitbox.y += hitbox.delta_y;
+		hitbox.x += hitbox.delta_x;
+	}
+	point.y = hitbox.y;
+	point.x = hitbox.x;
+	return (point);
+}
 
 t_hit	raycast(int direction, t_player player, t_map *world_map)
 {
@@ -42,29 +70,22 @@ t_hit	raycast(int direction, t_player player, t_map *world_map)
 	return (horizontal);
 }
 
-int	what_im_doing(t_screen *screen, t_player player, t_map *world_map) // Also known as raycast
+int	what_im_doing(t_screen *screen, t_player player, t_map *world_map)
 {
-	float direction;
+	float	direction;
+	int		wall_x;
+	int		height;
 	t_hit	hit;
 
-	float angle_rays = 60 / 1280.0;
 	direction = player.angle + 30;
-	double projection_distance = 720.0 / tan(radians(30));
-	int i = 0;
+	wall_x = 0;
 	while (direction > (player.angle - 30.0))
 	{
 		hit = raycast(direction, player, world_map);
-		int height = floor(64 / hit.distance * projection_distance);
-		int j = 360 - (height / 2);
-		int x = 0;
-		while (x <= height)
-		{
-			wall_pixel_put(screen, (t_point){i, j}, &hit, height, x);
-			j++;
-			x++;
-		}
-		direction -= angle_rays;
-		i++;
+		height = floor(64 / hit.distance * screen->projection_distance);
+		wall_pixel_put(screen, wall_x, &hit, height);
+		direction -= screen->angle_rays;
+		wall_x++;
 	}
 	return (0);
 }

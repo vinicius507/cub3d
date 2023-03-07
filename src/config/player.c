@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:52:52 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/04 21:25:18 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/06 21:49:21 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,3 @@ int	set_player_position(t_cub *cub)
 		return (set_player_postition_error(found));
 	return (0);
 }
-

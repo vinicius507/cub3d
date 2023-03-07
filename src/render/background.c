@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   background.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/06 21:49:53 by lufelip2          #+#    #+#             */
+/*   Updated: 2023/03/06 21:50:22 by lufelip2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "projection.h"
 
 void	pixel_put(t_img *buffer, int x, int y, int color)
@@ -36,10 +48,12 @@ int	background(t_img *buffer, t_color ceiling, t_color floor)
 	{
 		x = 0;
 		while (x <= 1280)
+		{
 			if (y <= 360)
 				pixel_put(buffer, x++, y, ceiling.hex);
 			else
 				pixel_put(buffer, x++, y, floor.hex);
+		}
 		y++;
 	}
 	return (0);

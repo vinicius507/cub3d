@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:55:18 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/04 21:25:28 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/06 23:45:05 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,8 @@
 #include "config/config.h"
 #include <errno.h>
 #include <fcntl.h>
-#include <mlx.h>
 #include <string.h>
 #include <unistd.h>
-
-char line_0[] = {1, 1, 1, 1, 1, 1, 1};
-char line_1[] = {1, 0, 0, 0, 0, 0, 1};
-char line_2[] = {1, 0, 0, 0, 0, 0, 1};
-char line_3[] = {1, 0, 0, 0, 0, 0, 1};
-char line_4[] = {1, 0, 0, 0, 0, 0, 1};
-char line_5[] = {1, 0, 0, 0, 0, 0, 1};
-char line_6[] = {1, 1, 1, 1, 1, 1, 1};
-
-char *worldMapp[] = {
-	line_0,
-	line_1,
-	line_2,
-	line_3,
-	line_4,
-	line_5,
-	line_6
-};
 
 static void	init_mlx(t_cub *cub)
 {
@@ -48,6 +29,8 @@ static void	init_mlx(t_cub *cub)
 			&cub->screen.buffer.bpp,
 			&cub->screen.buffer.line_len,
 			&cub->screen.buffer.endianess);
+	cub->screen.angle_rays = 60 / 1280.0;
+	cub->screen.projection_distance = 720.0 / tan(M_PI / 6);
 }
 
 int	cub_load_config(t_cub *cub, const char *filename)
@@ -111,7 +94,7 @@ void	cub_init(t_cub *cub)
 	mlx_mouse_hide(cub->screen.mlx, cub->screen.window);
 	mlx_loop_hook(cub->screen.mlx, &render, cub);
 	mlx_hook(cub->screen.window, 17, 0, &cub_exit, cub);
-	mlx_hook(cub->screen.window, 2, 1L<<0, &handle_keyboard, cub);
-	mlx_hook(cub->screen.window, 6, 1L<<6, &handle_mouse, cub);
+	mlx_hook(cub->screen.window, 2, 1L << 0, &handle_keyboard, cub);
+	mlx_hook(cub->screen.window, 6, 1L << 6, &handle_mouse, cub);
 	mlx_loop(cub->screen.mlx);
 }
