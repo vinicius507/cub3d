@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:55:18 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/06 23:45:05 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/19 20:48:42 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ int	cub_load_config(t_cub *cub, const char *filename)
 		free_str_array(lines);
 		return (1);
 	}
+	cub->player.fov = 60;
+	cub->player.fov = cub->player.fov / 2;
+	cub->player.x = 2;
+	cub->player.y = 2;
+	cub->player.angle = 90;
 	free_str_array(lines);
 	return (0);
 }
