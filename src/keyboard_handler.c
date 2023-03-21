@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:39:21 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/03/19 20:51:26 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/21 00:12:04 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ void	move(t_cub *cub, double x, double y)
 
 void	look_left(t_cub *cub)
 {
-	cub->player.angle -= 0.2;
+	cub->player.angle -= 0.6;
 	if (cub->player.angle == 359)
 		cub->player.angle = 0;
 }
 
 void	look_right(t_cub *cub)
 {
-	cub->player.angle += 0.2;
+	cub->player.angle += 0.6;
 	if (cub->player.angle < 0)
 		cub->player.angle = 359;
 }
@@ -58,9 +58,9 @@ int	handle_keyboard(int keysym, t_cub *cub)
 {
 	if (keysym == XK_Escape)
 		cub_exit(cub);
-	else if (keysym == XK_w)
+	else if (keysym == XK_w || keysym == XK_Up)
 		move_up(cub);
-	else if (keysym == XK_s)
+	else if (keysym == XK_s || keysym == XK_Down)
 		move_down(cub);
 	else if (keysym == XK_a)
 		move_left(cub);

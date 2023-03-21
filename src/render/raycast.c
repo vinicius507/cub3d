@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 10:50:11 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/19 19:33:57 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/21 00:04:48 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ static void	draw_line(t_img *img, t_point start, t_point end, int color)
 		pixel_put(img, start.x, y, color);
 		y++;
 	}
+	(void)x;
 }
 
 static void	draw_texture(t_screen *screen, t_img *wall, t_point start, t_hit *hit, int height)
@@ -143,7 +144,7 @@ static void	draw(t_screen *screen, int x, int height, t_hit *hit)
 		buffer,
 		(t_point){x, 0},
 		(t_point){x, SCREEN_HALF_HEIGHT - height},
-		rgb(0, 0, 0));
+		screen->ceiling.hex);
 	draw_texture(
 		screen,
 		&screen->walls[hit->side],
@@ -154,7 +155,7 @@ static void	draw(t_screen *screen, int x, int height, t_hit *hit)
 		buffer,
 		(t_point){x, SCREEN_HALF_HEIGHT + height},
 		(t_point){x, SCREEN_HEIGHT},
-		rgb(200, 200, 200));
+		screen->floor.hex);
 }
 
 void	raycasting(t_cub *cub)
@@ -165,7 +166,7 @@ void	raycasting(t_cub *cub)
 	double		ray_angle;
 
 	x = 0;
-	ray_angle = cub->player.angle;
+	ray_angle = cub->player.angle - 30;
 	while (x < SCREEN_WIDTH)
 	{
 		hit = raycast(cub, ray_angle);
