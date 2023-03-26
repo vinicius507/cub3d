@@ -6,7 +6,7 @@
 #    By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 12:35:24 by vgoncalv          #+#    #+#              #
-#    Updated: 2023/03/19 20:18:44 by lufelip2         ###   ########.fr        #
+#    Updated: 2023/03/25 21:34:19 by lufelip2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRCS_DIR := ./src ./src/config ./src/render
 vpath %.c $(SRCS_DIR)
 SRCS = main.c error.c parse_args.c utils.c file.c options.c parsers.c color.c \
 			render.c cub.c read_map.c map_validation.c player.c image.c \
-			raycast.c mouse_handler.c \
+			raycast.c mouse_handler.c texture.c\
 			keyboard_handler.c move_switcher.c
 
 OBJS = $(addprefix $(BUILD_DIR)/,$(SRCS:%.c=%.o))

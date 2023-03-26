@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:39:36 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/03/19 20:31:24 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/25 21:56:11 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <mlx.h>
 # include <math.h>
 # include <X11/keysym.h>
-# include <stdio.h>
+# include <stdlib.h>
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
 
@@ -68,10 +68,10 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	double			x;
-	double			y;
-	double		angle;
-	int			fov;
+	double	x;
+	double	y;
+	double	angle;
+	int		fov;
 }	t_player;
 
 typedef struct s_cub
@@ -83,7 +83,7 @@ typedef struct s_cub
 
 void	errmsg(const char *eror);
 char	*parse_args(int argc, char **argv);
-int	rgb(int r, int g, int b);
+int		rgb(int r, int g, int b);
 void	free_str_array(char **config);
 int		str_is_whitespace_only(char *line);
 int		cub_load_config(t_cub *cub, const char *filename);

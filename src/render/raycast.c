@@ -6,14 +6,11 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 10:50:11 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/21 00:04:48 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/25 21:33:21 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "projection.h"
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 double	radians(double degree)
 {
@@ -31,7 +28,6 @@ static int	in_range(double n, double min, double max)
 	return (0);
 }
 
-// TODO: make this work
 static int	get_hit_side(t_hit *hit)
 {
 	double		precision;
@@ -83,79 +79,6 @@ static t_hit	raycast(t_cub *cub, double ray_angle)
 			+ pow(cub->player.y - ray.y, 2));
 	hit.distance = hit.distance * cos(radians(ray_angle - cub->player.angle));
 	return (hit);
-}
-
-static void	draw_line(t_img *img, t_point start, t_point end, int color)
-{
-	int	x;
-	int	y;
-
-	if (start.x < 0)
-		x = 0;
-	else if (start.x >= SCREEN_WIDTH)
-		x = SCREEN_WIDTH - 1;
-	else
-		x = start.x;
-	if (start.y < 0)
-		y = 0;
-	else if (start.y > SCREEN_HEIGHT)
-		y = SCREEN_HEIGHT - 1;
-	else
-		y = start.y;
-	while (y < end.y && y < SCREEN_HEIGHT)
-	{
-		pixel_put(img, start.x, y, color);
-		y++;
-	}
-	(void)x;
-}
-
-static void	draw_texture(t_screen *screen, t_img *wall, t_point start, t_hit *hit, int height)
-{
-	int		i;
-	double	y;
-	double	dy;
-	t_color	color;
-	int		texture_x;
-
-	i = 0;
-	y = start.y;
-	dy = (double)height * 2 / wall->height;
-	texture_x = (int)floor(wall->width * (hit->x + hit->y)) % wall->width;
-	while (i < wall->height)
-	{
-		color.hex = pixel_get(wall, texture_x, i);
-		draw_line(
-			&screen->buffer,
-			(t_point){start.x, floor(y)},
-			(t_point){start.x, floor(y + dy)},
-			color.hex);
-		y += dy;
-		i++;
-	}
-}
-
-static void	draw(t_screen *screen, int x, int height, t_hit *hit)
-{
-	t_img	*buffer;
-
-	buffer = &screen->buffer;
-	draw_line(
-		buffer,
-		(t_point){x, 0},
-		(t_point){x, SCREEN_HALF_HEIGHT - height},
-		screen->ceiling.hex);
-	draw_texture(
-		screen,
-		&screen->walls[hit->side],
-		(t_point){x, SCREEN_HALF_HEIGHT - height},
-		hit,
-		height);
-	draw_line(
-		buffer,
-		(t_point){x, SCREEN_HALF_HEIGHT + height},
-		(t_point){x, SCREEN_HEIGHT},
-		screen->floor.hex);
 }
 
 void	raycasting(t_cub *cub)
