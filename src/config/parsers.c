@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:12:06 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/30 17:35:11 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:10:00 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,18 @@ int	parse_map(t_cub *cub, char **lines, size_t *lineno)
 	while ((str_is_whitespace_only(lines[*lineno])))
 	{
 		if (lines[*lineno] == NULL)
+		{
+			ft_dprintf(STDERR_FILENO, ERR_CFG_NO_MAP);
 			return (1);
+		}
 		*lineno += 1;
 	}
 	cub->map = read_map(&lines[*lineno]);
 	if (cub->map.rows == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\n");
 		return (1);
+	}
 	if ((map_is_valid(&cub->map) == 0))
 		return (1);
 	if ((set_player_position(cub) != 0))
