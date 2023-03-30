@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 15:26:16 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/30 18:03:30 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:00:35 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define ERR_CFG_TEXTURE_NOT_LOADED "Error\nCould not load XPM texture: '%s'\n"
 # define ERR_CFG_WRONG_OPTION_VALUE "Error\nconfig: %s: invalid value\n"
 # define ERR_CFG_UNSET_OPTIONS "Error\nconfig: configuration incomplete\n"
-# define ERR_CFG_MAP_UNEXPECTED_CHR "Error\nmap: %d,%d: unexpected char: %c\n"
+# define ERR_CFG_INVALID_MAP "Error\nmap: invalid map configuration\n"
 # define ERR_CFG_MAP_NO_PLAYER "Error\nmap: no player inside the map\n"
 # define ERR_CFG_MAP_TOO_MANY_PLAYERS "Error\nmap: too many players: %d\n"
 # define ERR_CFG_DUPLICATE_KEY "Error\nconfig: %s: duplicate key in config\n"
