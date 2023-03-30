@@ -1,9 +1,10 @@
 NO ./assets/no.xpm
+NO ./assets/no.xpm
 SO ./assets/so.xpm
 WE ./assets/we.xpm
 EA ./assets/ea.xpm
 
-F 255,0,0
+F 255,255,255
 C 0,0,0
 
         1111111111111111111111111

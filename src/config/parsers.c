@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:12:06 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/02/28 20:10:52 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:35:11 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,26 +86,4 @@ int	parse_map(t_cub *cub, char **lines, size_t *lineno)
 	if ((set_player_position(cub) != 0))
 		return (1);
 	return (0);
-}
-
-int	parse_config(t_cub *cub, char **lines)
-{
-	int		unset;
-	size_t	lineno;
-
-	lineno = 0;
-	unset = parse_options(cub, lines, &lineno);
-	if (unset == -1)
-	{
-		ft_dprintf(
-			STDERR_FILENO,
-			"Error\nfatal: config parse error\n");
-		return (-1);
-	}
-	else if (unset > 0)
-	{
-		ft_dprintf(STDERR_FILENO, ERR_CFG_UNSET_OPTIONS);
-		return (-1);
-	}
-	return (parse_map(cub, lines, &lineno));
 }
