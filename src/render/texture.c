@@ -5,64 +5,84 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 13:40:48 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/03/06 23:41:40 by lufelip2         ###   ########.fr       */
+/*   Created: 2023/03/25 21:28:27 by lufelip2          #+#    #+#             */
+/*   Updated: 2023/03/25 21:54:24 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "projection.h"
 
-void	wall_pixel_put(t_screen *screen, int x, t_hit *hit, int height)
+void	draw_texture(t_screen *screen, t_texture texture)
 {
-	int		color;
-	t_img	*wall;
-	double	texture_x;
-	int		wall_y;
-	int		y;
+	int		i;
+	double	y;
+	double	dy;
+	t_color	color;
+	int		texture_x;
 
-	y = 360 - (height / 2);
-	texture_x = 0;
-	if (hit->side == W_NO || hit->side == W_SO)
-		texture_x = (int)floor(hit->x) % 64;
-	else if (hit->side == W_WE || hit->side == W_EA)
-		texture_x = (int)floor(hit->y) % 64;
-	wall = &screen->walls[hit->side];
-	wall_y = 0;
-	while (wall_y <= height)
+	i = 0;
+	y = texture.start.y;
+	dy = (double)texture.height * 2 / texture.wall->height;
+	texture_x = (int)floor(
+			texture.wall->width * (texture.hit->x + texture.hit->y)
+			) % texture.wall->width;
+	while (i < texture.wall->height)
 	{
-		color = pixel_get(
-				wall,
-				texture_x,
-				floor(((double)wall->height / height) * wall_y));
-		pixel_put(&screen->buffer, x, y, color);
-		wall_y++;
-		y++;
+		color.hex = pixel_get(texture.wall, texture_x, i);
+		draw_line(
+			&screen->buffer,
+			(t_point){texture.start.x, floor(y)},
+			(t_point){texture.start.x, floor(y + dy)},
+			color.hex);
+		y += dy;
+		i++;
 	}
 }
 
-int	h_side(int x_coordinate)
+void	draw(t_screen *screen, int x, int height, t_hit *hit)
 {
-	if ((x_coordinate % BOX_SIZE) > (BOX_SIZE / 2))
-		return (W_EA);
-	return (W_WE);
+	t_img		*buffer;
+	t_texture	texture;
+
+	buffer = &screen->buffer;
+	draw_line(
+		buffer,
+		(t_point){x, 0},
+		(t_point){x, SCREEN_HALF_HEIGHT - height},
+		screen->ceiling.hex);
+	texture.wall = &screen->walls[hit->side];
+	texture.height = height;
+	texture.hit = hit;
+	texture.start = (t_point){x, SCREEN_HALF_HEIGHT - height};
+	draw_texture(screen, texture);
+	draw_line(
+		buffer,
+		(t_point){x, SCREEN_HALF_HEIGHT + height},
+		(t_point){x, SCREEN_HEIGHT},
+		screen->floor.hex);
 }
 
-int	v_side(int y_coordinate)
+void	draw_line(t_img *img, t_point start, t_point end, int color)
 {
-	if ((y_coordinate % BOX_SIZE) > (BOX_SIZE / 2))
-		return (W_SO);
-	return (W_NO);
-}
+	int	x;
+	int	y;
 
-int	side_corretion(int angle)
-{
-	if (angle > 315)
-		return (W_WE);
-	if (angle > 225)
-		return (W_NO);
-	if (angle > 135)
-		return (W_EA);
-	if (angle > 45)
-		return (W_SO);
-	return (W_WE);
+	if (start.x < 0)
+		x = 0;
+	else if (start.x >= SCREEN_WIDTH)
+		x = SCREEN_WIDTH - 1;
+	else
+		x = start.x;
+	if (start.y < 0)
+		y = 0;
+	else if (start.y > SCREEN_HEIGHT)
+		y = SCREEN_HEIGHT - 1;
+	else
+		y = start.y;
+	while (y < end.y && y < SCREEN_HEIGHT)
+	{
+		pixel_put(img, start.x, y, color);
+		y++;
+	}
+	(void)x;
 }

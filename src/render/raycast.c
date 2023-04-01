@@ -5,87 +5,95 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 13:35:18 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/03/06 23:35:33 by lufelip2         ###   ########.fr       */
+/*   Created: 2023/02/06 10:50:11 by vgoncalv          #+#    #+#             */
+/*   Updated: 2023/04/01 17:58:12 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "projection.h"
-#include <unistd.h>
 
-t_fpoint	cast(t_hitbox init_hitbox, t_map *world_map)
+double	radians(double degree)
 {
-	t_hitbox	hitbox;
-	t_fpoint	point;
-	int			box_y;
-	int			box_x;
-
-	hitbox = init_hitbox;
-	point.y = -1;
-	point.x = -1;
-	while (NOT_HIT)
-	{
-		box_y = hitbox.y / BOX_SIZE;
-		box_x = hitbox.x / BOX_SIZE;
-		if (box_x < 0 || box_x > (int)world_map->width - 1)
-			return (point);
-		if (box_y < 0 || box_y > (int)world_map->height - 1)
-			return (point);
-		if (world_map->rows[box_y][box_x] == '1')
-			break ;
-		hitbox.y += hitbox.delta_y;
-		hitbox.x += hitbox.delta_x;
-	}
-	point.y = hitbox.y;
-	point.x = hitbox.x;
-	return (point);
+	return (degree * M_PI / 180);
 }
 
-t_hit	raycast(int direction, t_player player, t_map *world_map)
+static int	in_range(double n, double min, double max)
 {
-	t_hit	horizontal;
-	t_hit	vertical;
-
-	if (direction < 0)
-		direction += 359;
-	if (direction > 359)
-		direction -= 359;
-	horizontal.distance = -1;
-	vertical.distance = -1;
-	if (direction != 0 && direction != 180)
-		horizontal = h_ray(direction, player, world_map);
-	if (direction != 90 && direction != 270)
-		vertical = v_ray(direction, player, world_map);
-	if (horizontal.distance == OUT_OF_LIMITS)
-		return (vertical);
-	if (vertical.distance == OUT_OF_LIMITS)
-		return (horizontal);
-	if (vertical.distance < horizontal.distance)
-		return (vertical);
-	if (vertical.distance == horizontal.distance)
-	{
-		vertical.side = side_corretion(direction);
-		return (vertical);
-	}
-	return (horizontal);
-}
-
-int	what_im_doing(t_screen *screen, t_player player, t_map *world_map)
-{
-	float	direction;
-	int		wall_x;
-	int		height;
-	t_hit	hit;
-
-	direction = player.angle + 30;
-	wall_x = 0;
-	while (direction > (player.angle - 30.0))
-	{
-		hit = raycast(direction, player, world_map);
-		height = floor(64 / hit.distance * screen->projection_distance);
-		wall_pixel_put(screen, wall_x, &hit, height);
-		direction -= screen->angle_rays;
-		wall_x++;
-	}
+	n = n * 10.0 / 10.0;
+	if ((n - min >= 0 && fabs(n - min) >= 0)
+		&& (n - max <= 0 && fabs(n - max) >= 0))
+		return (1);
 	return (0);
+}
+
+static int	get_hit_side(t_hit *hit)
+{
+	double		precision;
+	t_point		vertex[4];
+
+	precision = 1. / RAY_PRECISION;
+	vertex[0] = (t_point){floor(hit->x), floor(hit->y)};
+	vertex[1] = (t_point){vertex[0].x + 1, vertex[0].y};
+	vertex[2] = (t_point){vertex[0].x + 1, vertex[0].y + 1};
+	vertex[3] = (t_point){vertex[0].x, vertex[0].y + 1};
+	if (in_range(hit->x, vertex[3].x, vertex[2].x)
+		&& fabs((double)vertex[2].y - hit->y) < precision)
+		return (W_NO);
+	if (in_range(hit->x, vertex[0].x, vertex[1].x)
+		&& fabs((double)vertex[1].y - hit->y) < precision)
+		return (W_SO);
+	if (in_range(hit->y, vertex[1].y, vertex[2].y)
+		&& fabs((double)vertex[1].x - hit->x) < precision)
+		return (W_WE);
+	if (in_range(hit->y, vertex[0].y, vertex[3].y)
+		&& fabs((double)vertex[0].x - hit->x) < precision)
+		return (W_EA);
+	return (-1);
+}
+
+static t_hit	raycast(t_cub *cub, double ray_angle)
+{
+	double	dx;
+	double	dy;
+	t_ray	ray;
+	t_hit	hit;
+	char	wall;
+
+	hit = (t_hit){-1, -1, 0, 0};
+	wall = '0';
+	ray = (t_ray){(cub->player.x), (cub->player.y)};
+	dx = cos(radians(ray_angle)) / RAY_PRECISION;
+	dy = sin(radians(ray_angle)) / RAY_PRECISION;
+	while (wall != '1')
+	{
+		ray.x += dx;
+		ray.y += dy;
+		wall = cub->map.rows[(int)floor(ray.y)][(int)floor(ray.x)];
+	}
+	hit.x = ray.x;
+	hit.y = ray.y;
+	hit.side = get_hit_side(&hit);
+	hit.distance = sqrt(pow(cub->player.x - ray.x, 2)
+			+ pow(cub->player.y - ray.y, 2));
+	hit.distance = hit.distance * cos(radians(ray_angle - cub->player.angle));
+	return (hit);
+}
+
+void	raycasting(t_cub *cub)
+{
+	int			x;
+	t_hit		hit;
+	int			height;
+	double		ray_angle;
+
+	x = 0;
+	ray_angle = cub->player.angle - 30;
+	while (x < SCREEN_WIDTH)
+	{
+		hit = raycast(cub, ray_angle);
+		height = floor(SCREEN_HALF_HEIGHT / hit.distance);
+		draw(&cub->screen, x, height, &hit);
+		ray_angle += (double)cub->player.fov / SCREEN_WIDTH;
+		x++;
+	}
 }

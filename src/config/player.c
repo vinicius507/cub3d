@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:52:52 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/06 21:49:21 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:09:56 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ void	set_player_angle(t_player *player, char side)
 		player->angle = 180;
 	else
 		player->angle = 270;
+	player->fov = 60;
 }
 
 void	set_player_coordinates(t_player *player, size_t x, size_t y)
 {
-	player->x = x * 64;
-	player->y = y * 64;
+	player->x = x;
+	player->y = y;
 }
 
 int	set_player_position(t_cub *cub)

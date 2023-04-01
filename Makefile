@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 12:35:24 by vgoncalv          #+#    #+#              #
-#    Updated: 2023/03/30 17:33:41 by vgoncalv         ###   ########.fr        #
+#    Updated: 2023/04/01 17:58:46 by lufelip2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,11 @@ LIBMLX_FLAGS = -lXext -lmlx -lX11 -lm
 LIBS_FLAGS = $(LIBFT_FLAGS) $(LIBMLX_FLAGS)
 LIBS_INCLUDES = $(LIBFT_INCLUDES_DIR)
 SRCS_DIR := ./src ./src/config ./src/render
+
 vpath %.c $(SRCS_DIR)
 SRCS = main.c error.c parse_args.c utils.c file.c options.c parsers.c color.c \
 			render.c cub.c read_map.c map_validation.c player.c background.c \
-			draw_aux.c raycast_aux.c raycast.c texture.c mouse_handler.c \
+			raycast.c texture.c mouse_handler.c \
 			keyboard_handler.c move_switcher.c texture_option.c color_option.c
 
 OBJS = $(addprefix $(BUILD_DIR)/,$(SRCS:%.c=%.o))
