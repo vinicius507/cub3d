@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   color_option.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:28:49 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/30 18:45:02 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:50:49 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "config.h"
-#include "libft.h"
-#include "libft/ft_ctype.h"
-#include <unistd.h>
 
 static int	set_spec_value(unsigned char *spec, char *key, char *value)
 {

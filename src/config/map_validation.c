@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:07:42 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/30 19:01:11 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:51:21 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "config.h"
-#include <unistd.h>
 
 int	get_tile(char c)
 {

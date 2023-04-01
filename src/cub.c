@@ -6,16 +6,12 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:55:18 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/04/01 18:09:37 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/04/01 20:00:48 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "config/config.h"
-#include <errno.h>
-#include <fcntl.h>
-#include <string.h>
-#include <unistd.h>
 
 static void	init_mlx(t_cub *cub)
 {

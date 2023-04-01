@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"mlx.h": "c",
-		"iterator": "c"
+		"iterator": "c",
+		"projection.h": "c"
 	}
 }

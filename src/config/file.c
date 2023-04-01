@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:04:45 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/02/21 12:54:49 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:51:17 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "config.h"
-#include <libft.h>
 
 char	**read_config_file(int fd)
 {
