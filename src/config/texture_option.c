@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   texture_option.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:28:00 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/30 17:59:39 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:51:41 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "config.h"
-#include <unistd.h>
 
 static int	load_xpm(t_cub *cub, t_img *wall, char *path)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 15:26:16 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/30 19:06:59 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:50:57 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define CONFIG_H
 
 # include "../cub3d.h"
+# include "libft.h"
+# include "libft/ft_ctype.h"
 
 # define ERR_CFG_UNKNOWN_OPTION "Error\nconfig: expected option, got: '%s'\n"
 # define ERR_CFG_TEXTURE_NOT_LOADED "Error\nCould not load XPM texture: '%s'\n"

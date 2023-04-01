@@ -6,12 +6,11 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:52:52 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/04/01 18:09:56 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:51:35 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "config.h"
-#include <unistd.h>
 
 int	set_player_postition_error(int found)
 {
@@ -25,20 +24,20 @@ int	set_player_postition_error(int found)
 void	set_player_angle(t_player *player, char side)
 {
 	if (side == 'E')
-		player->angle = 0;
+		player->angle = 0.1;
 	else if (side == 'N')
-		player->angle = 90;
+		player->angle = 90.1;
 	else if (side == 'W')
-		player->angle = 180;
+		player->angle = 180.1;
 	else
-		player->angle = 270;
+		player->angle = 270.1;
 	player->fov = 60;
 }
 
 void	set_player_coordinates(t_player *player, size_t x, size_t y)
 {
-	player->x = x;
-	player->y = y;
+	player->x = x + 0.5;
+	player->y = y + 0.5;
 }
 
 int	set_player_position(t_cub *cub)

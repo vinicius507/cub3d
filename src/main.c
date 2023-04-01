@@ -3,16 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:34:02 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/02/21 13:26:55 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/04/01 20:02:37 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include "config/config.h"
-#include "error.h"
 #include "cub3d.h"
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:39:36 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/03/25 21:56:11 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/04/01 20:00:32 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 # include <math.h>
 # include <X11/keysym.h>
 # include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
+# include <fcntl.h>
+# include <errno.h>
+
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
 

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:12:06 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/30 19:10:00 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:51:32 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "config.h"
-#include <unistd.h>
 
 static char	**parse_option(char *line)
 {

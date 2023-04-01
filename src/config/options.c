@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   options.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 23:18:54 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/30 18:21:03 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:51:26 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "config.h"
-#include <libft.h>
-#include <unistd.h>
 
 char	*option_key(char *line)
 {
