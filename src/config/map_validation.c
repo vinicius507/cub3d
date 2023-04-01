@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:07:42 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/03/02 01:01:44 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:01:11 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,22 @@ int	get_expected(int tile)
 	return (0);
 }
 
-int	expect(t_map *map, size_t x, size_t y, int expected)
+int	expect(t_map *map, ssize_t x, ssize_t y, int expected)
 {
 	int	tile;
 	int	is_expected;
 
-	if (x >= map->width || y >= map->height)
-		return (1);
-	tile = get_tile(map->rows[y][x]);
+	if (x < 0 || y < 0 || (size_t)x >= map->width || (size_t)y >= map->height)
+		tile = TL_VOID;
+	else
+		tile = get_tile(map->rows[y][x]);
 	is_expected = tile & expected;
 	if (is_expected == 0)
-	{
-		ft_dprintf(
-			STDERR_FILENO,
-			ERR_CFG_MAP_UNEXPECTED_CHR,
-			x, y,
-			map->rows[y][x]);
-	}
-	return (tile & expected);
+		ft_dprintf(STDERR_FILENO, ERR_CFG_INVALID_MAP);
+	return (is_expected);
 }
 
-int	check_neighbors(t_map *map, size_t x, size_t y, int expected)
+int	check_neighbors(t_map *map, ssize_t x, ssize_t y, int expected)
 {
 	if ((expect(map, x + 1, y, expected) == 0))
 		return (0);
@@ -67,31 +62,31 @@ int	check_neighbors(t_map *map, size_t x, size_t y, int expected)
 		return (0);
 	if ((expect(map, x + 1, y + 1, expected) == 0))
 		return (0);
-	if (x > 0 && (expect(map, x - 1, y, expected) == 0))
+	if ((expect(map, x - 1, y, expected) == 0))
 		return (0);
-	if (y > 0 && (expect(map, x, y - 1, expected) == 0))
+	if ((expect(map, x, y - 1, expected) == 0))
 		return (0);
-	if (x > 0 && y > 0 && (expect(map, x - 1, y - 1, expected) == 0))
+	if ((expect(map, x - 1, y - 1, expected) == 0))
 		return (0);
-	if (y > 0 && (expect(map, x + 1, y - 1, expected) == 0))
+	if ((expect(map, x + 1, y - 1, expected) == 0))
 		return (0);
-	if (x > 0 && (expect(map, x - 1, y + 1, expected) == 0))
+	if ((expect(map, x - 1, y + 1, expected) == 0))
 		return (0);
 	return (1);
 }
 
 int	map_is_valid(t_map *map)
 {
-	size_t	x;
-	size_t	y;
+	ssize_t	x;
+	ssize_t	y;
 	int		tile;
 	int		expected;
 
 	y = 0;
-	while (y < map->height)
+	while ((size_t)y < map->height)
 	{
 		x = 0;
-		while (x < map->width)
+		while ((size_t)x < map->width)
 		{
 			tile = get_tile(map->rows[y][x]);
 			expected = get_expected(tile);
