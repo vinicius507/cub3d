@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   move_switcher.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 23:48:12 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/03/21 00:01:08 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:28:57 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
 void	move_up(t_cub *cub)
 {
@@ -75,7 +76,7 @@ void	move_left(t_cub *cub)
 	else if (cub->player.angle < 335.0)
 		move(cub, -0.1, -0.1);
 	else
-		move(cub, 0.1, 0);
+		move(cub, 0, -0.1);
 }
 
 void	move_right(t_cub *cub)
