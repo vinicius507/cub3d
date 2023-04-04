@@ -6,12 +6,11 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 23:48:12 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/04/04 18:28:57 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:38:54 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 void	move_up(t_cub *cub)
 {
