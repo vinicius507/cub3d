@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projection.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 22:27:45 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/04/01 19:46:28 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:29:05 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define SCREEN_HALF_WIDTH 640
 # define SCREEN_HALF_HEIGHT 360
 
-# define RAY_PRECISION 1024
+# define RAY_PRECISION 1280
 
 typedef struct s_point
 {
