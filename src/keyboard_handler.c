@@ -6,52 +6,41 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:39:21 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/04/01 20:01:08 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/04/07 20:55:06 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	hitted_wall(t_map *world_map, double x, double y)
+int	hitted_wall(t_map *world_map, t_player player, double x, double y)
 {
-	return (world_map->rows[(int)floor(y)][(int)floor(x)] == '1');
+	double	x_limit;
+	double	y_limit;
+	int		x_end;
+	int		y_end;
+
+	if (x < 0)
+		x_limit = x - 0.1;
+	else
+		x_limit = x + 0.1;
+	if (y < 0)
+		y_limit = y - 0.1;
+	else
+		y_limit = y + 0.1;
+	x_end = (int)floor(player.x + x_limit);
+	y_end = (int)floor(player.y + y_limit);
+	if (world_map->rows[y_end][x_end] == '1')
+		return (1);
+	return (0);
 }
 
 void	move(t_cub *cub, double x, double y)
 {
-	double	x_limit;
-	double	y_limit;
-
-	if (x < 0)
-		x_limit = x - 0.15;
-	else
-		x_limit = x + 0.15;
-	if (y < 0)
-		y_limit = y - 0.15;
-	else
-		y_limit = y + 0.15;
-	if (!hitted_wall(
-			&cub->map,
-			cub->player.x + x_limit,
-			cub->player.y + y_limit))
+	if (!hitted_wall(&cub->map, cub->player, x, y))
 	{
 		cub->player.y += y;
 		cub->player.x += x;
 	}
-}
-
-void	look_left(t_cub *cub)
-{
-	cub->player.angle -= 0.6;
-	if (cub->player.angle == 359)
-		cub->player.angle = 0;
-}
-
-void	look_right(t_cub *cub)
-{
-	cub->player.angle += 0.6;
-	if (cub->player.angle < 0)
-		cub->player.angle = 359;
 }
 
 int	handle_keyboard(int keysym, t_cub *cub)
