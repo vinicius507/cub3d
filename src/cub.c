@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:55:18 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/04/01 20:00:48 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/04/08 21:14:22 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	cub_exit(t_cub *cub)
 		mlx_destroy_image(cub->screen.mlx, cub->screen.walls[W_EA].ptr);
 	if (cub->screen.window != NULL)
 		mlx_destroy_window(cub->screen.mlx, cub->screen.window);
+	if (cub->screen.mlx != NULL)
+		mlx_destroy_display(cub->screen.mlx);
 	if (cub->screen.mlx != NULL)
 		free(cub->screen.mlx);
 	if (cub->map.rows != NULL)
