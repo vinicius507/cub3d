@@ -6,12 +6,11 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 17:04:05 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/04/07 20:48:23 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:10:50 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 int	handle_mouse(int x, int y, t_cub *cub)
 {
