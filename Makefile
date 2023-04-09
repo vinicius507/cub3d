@@ -6,11 +6,11 @@
 #    By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 12:35:24 by vgoncalv          #+#    #+#              #
-#    Updated: 2023/04/01 18:17:33 by lufelip2         ###   ########.fr        #
+#    Updated: 2023/04/09 17:06:26 by lufelip2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME = cub3D
 
 CC = cc
 CFLAGS = -g -Wall -Wextra -Werror
