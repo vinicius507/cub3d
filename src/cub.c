@@ -6,7 +6,7 @@
 /*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:55:18 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/04/01 20:00:48 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/04/08 21:08:02 by lufelip2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	cub_exit(t_cub *cub)
 	if (cub->screen.window != NULL)
 		mlx_destroy_window(cub->screen.mlx, cub->screen.window);
 	if (cub->screen.mlx != NULL)
+		mlx_destroy_display(cub->screen.mlx);
+	if (cub->screen.mlx != NULL)
 		free(cub->screen.mlx);
 	if (cub->map.rows != NULL)
 		free_str_array(cub->map.rows);
@@ -80,6 +82,7 @@ int	cub_exit(t_cub *cub)
 	exit(EXIT_SUCCESS);
 }
 
+//mlx_mouse_hide(cub->screen.mlx, cub->screen.window);
 void	cub_init(t_cub *cub)
 {
 	cub->screen.window = mlx_new_window(
@@ -87,7 +90,6 @@ void	cub_init(t_cub *cub)
 			SCREEN_WIDTH,
 			SCREEN_HEIGHT,
 			"Cub3D");
-	mlx_mouse_hide(cub->screen.mlx, cub->screen.window);
 	mlx_loop_hook(cub->screen.mlx, &render, cub);
 	mlx_hook(cub->screen.window, 17, 0, &cub_exit, cub);
 	mlx_hook(cub->screen.window, 2, 1L << 0, &handle_keyboard, cub);
