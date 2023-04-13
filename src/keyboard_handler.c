@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:39:21 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/04/07 20:55:06 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:09:40 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "render/projection.h"
 
 int	hitted_wall(t_map *world_map, t_player player, double x, double y)
 {
@@ -34,13 +35,17 @@ int	hitted_wall(t_map *world_map, t_player player, double x, double y)
 	return (0);
 }
 
-void	move(t_cub *cub, double x, double y)
+void	move(t_cub *cub, int direction)
 {
-	if (!hitted_wall(&cub->map, cub->player, x, y))
-	{
-		cub->player.y += y;
-		cub->player.x += x;
-	}
+	t_hit		hit;
+	long double	mov_angle;
+
+	mov_angle = cub->player.angle + (direction * 90.0);
+	hit = raycast(cub, mov_angle);
+	if (hit.distance < MOVE_DISTANCE + PLAYER_BOUNDARY)
+		return ;
+	cub->player.x += MOVE_DISTANCE * cos(radians(mov_angle));
+	cub->player.y += MOVE_DISTANCE * sin(radians(mov_angle));
 }
 
 int	handle_keyboard(int keysym, t_cub *cub)
@@ -48,13 +53,13 @@ int	handle_keyboard(int keysym, t_cub *cub)
 	if (keysym == XK_Escape)
 		cub_exit(cub);
 	else if (keysym == XK_w || keysym == XK_Up)
-		move_up(cub);
+		move(cub, 0);
 	else if (keysym == XK_s || keysym == XK_Down)
-		move_down(cub);
+		move(cub, 2);
 	else if (keysym == XK_a)
-		move_left(cub);
+		move(cub, 3);
 	else if (keysym == XK_d)
-		move_right(cub);
+		move(cub, 1);
 	else if (keysym == XK_Left)
 		look_left(cub);
 	else if (keysym == XK_Right)

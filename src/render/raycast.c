@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 10:50:11 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/04/13 15:01:30 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:03:06 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	get_hit_side(t_hit *hit)
 	return (-1);
 }
 
-static t_hit	raycast(t_cub *cub, double ray_angle)
+t_hit	raycast(t_cub *cub, double ray_angle)
 {
 	double	dx;
 	double	dy;
