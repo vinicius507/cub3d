@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:39:36 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/04/09 16:32:08 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:00:15 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ void	move_right(t_cub *cub);
 void	look_left(t_cub *cub);
 void	look_right(t_cub *cub);
 void	move(t_cub *cub, double x, double y);
+double	radians(double degree);
 
 #endif

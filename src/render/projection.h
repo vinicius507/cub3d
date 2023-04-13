@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 22:27:45 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/04/06 16:29:05 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:00:20 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ int			render(t_cub *rcast);
 void		draw_texture(t_screen *screen, t_texture texture);
 void		draw(t_screen *screen, int x, int height, t_hit *hit);
 void		draw_line(t_img *img, t_point start, t_point end, int color);
+void		fisheye_fix(t_cub *cub, t_hit *hit, double ray_angle);
 
 #endif
