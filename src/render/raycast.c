@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 10:50:11 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/04/01 17:58:12 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:03:06 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "projection.h"
-
-double	radians(double degree)
-{
-	return (degree * M_PI / 180);
-}
 
 static int	in_range(double n, double min, double max)
 {
@@ -51,7 +46,7 @@ static int	get_hit_side(t_hit *hit)
 	return (-1);
 }
 
-static t_hit	raycast(t_cub *cub, double ray_angle)
+t_hit	raycast(t_cub *cub, double ray_angle)
 {
 	double	dx;
 	double	dy;
@@ -75,7 +70,6 @@ static t_hit	raycast(t_cub *cub, double ray_angle)
 	hit.side = get_hit_side(&hit);
 	hit.distance = sqrt(pow(cub->player.x - ray.x, 2)
 			+ pow(cub->player.y - ray.y, 2));
-	hit.distance = hit.distance * cos(radians(ray_angle - cub->player.angle));
 	return (hit);
 }
 
@@ -91,6 +85,7 @@ void	raycasting(t_cub *cub)
 	while (x < SCREEN_WIDTH)
 	{
 		hit = raycast(cub, ray_angle);
+		fisheye_fix(cub, &hit, ray_angle);
 		height = floor(SCREEN_HALF_HEIGHT / hit.distance);
 		draw(&cub->screen, x, height, &hit);
 		ray_angle += (double)cub->player.fov / SCREEN_WIDTH;
