@@ -6,7 +6,7 @@
 /*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 10:50:11 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/04/13 15:03:06 by vgoncalv         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:24:53 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ static int	get_hit_side(t_hit *hit)
 	vertex[3] = (t_point){vertex[0].x, vertex[0].y + 1};
 	if (in_range(hit->x, vertex[3].x, vertex[2].x)
 		&& fabs((double)vertex[2].y - hit->y) < precision)
-		return (W_NO);
+		return (W_SO);
 	if (in_range(hit->x, vertex[0].x, vertex[1].x)
 		&& fabs((double)vertex[1].y - hit->y) < precision)
-		return (W_SO);
+		return (W_NO);
 	if (in_range(hit->y, vertex[1].y, vertex[2].y)
 		&& fabs((double)vertex[1].x - hit->x) < precision)
-		return (W_WE);
+		return (W_EA);
 	if (in_range(hit->y, vertex[0].y, vertex[3].y)
 		&& fabs((double)vertex[0].x - hit->x) < precision)
-		return (W_EA);
+		return (W_WE);
 	return (-1);
 }
 

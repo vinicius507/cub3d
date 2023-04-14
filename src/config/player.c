@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lufelip2 <lufelip2@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vgoncalv <vgoncalv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:52:52 by vgoncalv          #+#    #+#             */
-/*   Updated: 2023/04/01 19:51:35 by lufelip2         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:39:09 by vgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	set_player_angle(t_player *player, char side)
 	if (side == 'E')
 		player->angle = 0.1;
 	else if (side == 'N')
-		player->angle = 90.1;
+		player->angle = 270.1;
 	else if (side == 'W')
 		player->angle = 180.1;
 	else
-		player->angle = 270.1;
+		player->angle = 90.1;
 	player->fov = 60;
 }
 
