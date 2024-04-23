@@ -57,5 +57,4 @@ $ ./cub3D ./test_maps/test.cub
 
 ## Authors
 - [Vinicius Oliveira (vgoncalv)](https://github.com/vinicius507)
-- [Lucas Pires (lpires-n)](https://github.com/iLucasPires)
-- [Marcelo (marcrodr)](https://github.com/meritissimo1)
+- [Felipe Camargo](https://github.com/unilui)
