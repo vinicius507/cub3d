@@ -12,7 +12,7 @@
 # Cub3D
 [![build](https://github.com/vinicius507/cub3d/actions/workflows/build.yaml/badge.svg)](https://github.com/vinicius507/cub3d/actions/workflows/build.yaml)
 
-A [École 42](https://42.fr) project.
+An [École 42](https://42.fr) project.
 
 ![GIF of the game](/assets/showcase.gif)
 
